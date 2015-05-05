@@ -13,7 +13,7 @@
 #ifndef OCCQT_H
 #define OCCQT_H
 
-#include "ui_occqt.h"
+#include "ui_occQt.h"
 
 #include <AIS_InteractiveContext.hxx>
 #include <V3d_View.hxx>

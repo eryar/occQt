@@ -9,8 +9,8 @@
 *    Description : Qt main window for OpenCASCADE.
 */
 
-#include "occqt.h"
-#include "OccView.h"
+#include "occQt.h"
+#include "occView.h"
 
 #include <QToolBar>
 #include <QTreeView>
@@ -40,7 +40,6 @@
 #include <BRepPrimAPI_MakeTorus.hxx>
 #include <BRepPrimAPI_MakePrism.hxx>
 #include <BRepPrimAPI_MakeRevol.hxx>
-
 #include <BRepFilletAPI_MakeFillet.hxx>
 #include <BRepFilletAPI_MakeFillet2d.hxx>
 #include <BRepFilletAPI_MakeChamfer.hxx>
