@@ -13,7 +13,8 @@
 #ifndef _OCCVIEW_H_
 #define _OCCVIEW_H_
 
-#include <QtOpenGL\QGLWidget>
+#include <OpenGl_GraphicDriver.hxx>
+#include <QtOpenGL/QGLWidget>
 
 #include <AIS_InteractiveContext.hxx>
 #include <V3d_View.hxx>
