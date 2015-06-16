@@ -9,7 +9,7 @@
 *    Description : Qt widget for OpenCASCADE viewer.
 */
 
-#include "OccView.h"
+#include "occView.h"
 
 #include <QMenu>
 #include <QMouseEvent>
@@ -17,10 +17,21 @@
 #include <QStyleFactory>
 
 // occ header files.
-#include <V3d_Viewer.hxx>
-#include <WNT_Window.hxx>
+#include <V3d_View.hxx>
+#include <Graphic3d.hxx>
 #include <Aspect_Handle.hxx>
 
+#ifdef WNT
+  #include <WNT_Window.hxx>
+#elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
+  #include <Cocoa_Window.hxx>
+#else
+  #include <Xw_Window.hxx>
+#endif
+
+#ifndef WNT
+#define UNREFERENCED_PARAMETER(p) ((void)(p))
+#endif
 
 // the key for multi selection :
 #define MULTISELECTIONKEY Qt::ShiftModifier
@@ -28,10 +39,14 @@
 // the key for shortcut ( use to activate dynamic rotation, panning )
 #define CASCADESHORTCUTKEY Qt::ControlModifier
 
+static Handle(Graphic3d_GraphicDriver)& GetGraphicDriver()
+{
+  static Handle(Graphic3d_GraphicDriver) aGraphicDriver;
+  return aGraphicDriver;
+}
 
-OccView::OccView( Handle_AIS_InteractiveContext theContext, QWidget* parent )
+OccView::OccView(QWidget* parent )
     : QGLWidget(parent),
-    mContext(theContext),
     mXmin(0),
     mXmax(0),
     mYmin(0),
@@ -40,26 +55,57 @@ OccView::OccView( Handle_AIS_InteractiveContext theContext, QWidget* parent )
     mCurrentMode(CurAction3d_DynamicRotation),
     mRectBand(NULL)
 {
-    // Create the view.
-    mView = theContext->CurrentViewer()->CreateView();
+    // Create Aspect_DisplayConnection
+    Handle(Aspect_DisplayConnection) aDisplayConnection =
+            new Aspect_DisplayConnection();
 
-    // Attaching the window to the view.
-    // Portable in principle, but if you use it you are probably about to do something
-    // non-portable. Be careful. Gets the window system identifier of the widget by winId().
-    HWND winID = (HWND) (winId());
-    Handle_WNT_Window hWnd = new WNT_Window(winID);
-    mView->SetWindow(hWnd);
-    if (!hWnd->IsMapped())
+    // Get graphic driver if it exists, otherwise initialise it
+    if (GetGraphicDriver().IsNull())
     {
-        hWnd->Map();
+        GetGraphicDriver() = Graphic3d::InitGraphicDriver(aDisplayConnection);
     }
-    
+
+    // Get window handle. This returns something suitable for all platforms.
+    WId window_handle = (WId) winId();
+
+    // Create appropriate window for platform
+    #ifdef WNT
+        Handle_WNT_Window wind = new WNT_Window((Aspect_Handle) window_handle);
+    #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
+        Handle_Cocoa_Window wind = new Cocoa_Window((NSView *) window_handle);
+    #else
+        Handle_Xw_Window wind = new Xw_Window(aDisplayConnection, (Window) window_handle);
+    #endif
+
+    // Create V3dViewer and V3d_View
+    mViewer = new V3d_Viewer(GetGraphicDriver(), (short* const)"viewer");
+
+    mView = mViewer->CreateView();
+
+    mView->SetWindow(wind);
+    if (!wind->IsMapped()) wind->Map();
+
+    // Create AISInteractiveContext
+    mContext = new AIS_InteractiveContext(mViewer);
+
+    // Set up lights etc
+    mViewer->SetDefaultLights();
+    mViewer->SetLightOn();
+
     mView->SetBackgroundColor(Quantity_NOC_BLACK);
     mView->MustBeResized();
     mView->TriedronDisplay(Aspect_TOTP_LEFT_LOWER, Quantity_NOC_GOLD, 0.08, V3d_ZBUFFER);
 
+    mContext->SetDisplayMode(AIS_Shaded);
+
     // Enable the mouse tracking, by default the mouse tracking is disabled.
     setMouseTracking( true );
+
+}
+
+Handle_AIS_InteractiveContext OccView::getContext() const
+{
+    return mContext;
 }
 
 void OccView::paintEvent( QPaintEvent* e )
@@ -238,7 +284,7 @@ void OccView::onLButtonUp( const int theFlags, const QPoint thePoint )
             inputEvent(thePoint.x(), thePoint.y());
         }
     }
-    
+
 }
 
 void OccView::onMButtonUp( const int theFlags, const QPoint thePoint )

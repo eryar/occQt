@@ -7,18 +7,15 @@
 *        Version : OpenCASCADE6.8.0 & Qt5.4
 *
 *    Description : Adapte OpenCASCADE view for Qt.
-* 
+*
 */
 
 #ifndef _OCCVIEW_H_
 #define _OCCVIEW_H_
 
-#include <OpenGl_GraphicDriver.hxx>
-#include <QtOpenGL/QGLWidget>
+#include <QGLWidget>
 
 #include <AIS_InteractiveContext.hxx>
-#include <V3d_View.hxx>
-
 
 class QMenu;
 class QRubberBand;
@@ -30,19 +27,21 @@ class OccView : public QGLWidget
 
 public:
     //! mouse actions.
-    enum CurrentAction3d 
-    { 
-        CurAction3d_Nothing, 
+    enum CurrentAction3d
+    {
+        CurAction3d_Nothing,
         CurAction3d_DynamicZooming,
-        CurAction3d_WindowZooming, 
+        CurAction3d_WindowZooming,
         CurAction3d_DynamicPanning,
-        CurAction3d_GlobalPanning, 
-        CurAction3d_DynamicRotation 
+        CurAction3d_GlobalPanning,
+        CurAction3d_DynamicRotation
     };
 
 public:
     //! constructor.
-    OccView(Handle_AIS_InteractiveContext theContext, QWidget* parent);
+    OccView(QWidget* parent);
+
+    Handle_AIS_InteractiveContext getContext() const;
 
 signals:
     void selectionChanged(void);
@@ -75,7 +74,7 @@ protected:
     virtual void onMButtonUp(const int theFlags, const QPoint thePoint);
     virtual void onRButtonUp(const int theFlags, const QPoint thePoint);
     virtual void onMouseMove(const int theFlags, const QPoint thePoint);
-    
+
     // Popup menu.
     virtual void addItemInPopup(QMenu* theMenu);
 
@@ -91,7 +90,11 @@ protected:
     void panByMiddleButton(const QPoint& thePoint);
 
 private:
+
     //! the occ viewer.
+    Handle_V3d_Viewer mViewer;
+
+    //! the occ view.
     Handle_V3d_View mView;
 
     //! the occ context.
