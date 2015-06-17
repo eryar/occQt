@@ -16,7 +16,6 @@
 #include "ui_occQt.h"
 
 #include <AIS_InteractiveContext.hxx>
-#include <V3d_View.hxx>
 
 class OccView;
 
@@ -138,9 +137,6 @@ private:
 
     // wrapped the widget for occ.
     OccView* mOccView;
-
-    //! the occ viewer.
-    Handle_V3d_Viewer mViewer;
 
     //! the interactive context.
     Handle_AIS_InteractiveContext mContext;

@@ -37,7 +37,7 @@ win32:  LIBS += D:\OpenCASCADE6.8.0\opencascade-6.8.0\win32\vc12\libd\TKV3d.lib
 win32:  LIBS += D:\OpenCASCADE6.8.0\opencascade-6.8.0\win32\vc12\libd\TKOpenGl.lib
 win32:  LIBS += D:\OpenCASCADE6.8.0\opencascade-6.8.0\win32\vc12\libd\TKFillet.lib
 
-unix: LIBS += -lTKernel -lTKMath -lTKBrep -lTKTopAlgo -lTKPrim -lTKBO -lTKOffset -lTKService -lTKV3d -lTKOpenGl -lTKFillet
+unix: LIBS += -lTKernel -lTKMath -lTKBRep -lTKTopAlgo -lTKPrim -lTKBO -lTKOffset -lTKService -lTKV3d -lTKOpenGl -lTKFillet
 
 RESOURCES += \
     occqt.qrc
