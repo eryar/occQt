@@ -48,11 +48,11 @@ static Handle(Graphic3d_GraphicDriver)& GetGraphicDriver()
 OccView::OccView(QWidget* parent )
     : QGLWidget(parent),
     mXmin(0),
-    mXmax(0),
     mYmin(0),
-    mYmax(0),
-    mDegenerateModeIsOn(Standard_True),
+    mXmax(0),
+    mYmax(0),    
     mCurrentMode(CurAction3d_DynamicRotation),
+    mDegenerateModeIsOn(Standard_True),
     mRectBand(NULL)
 {
     // Create Aspect_DisplayConnection
@@ -341,6 +341,9 @@ void OccView::onMouseMove( const int theFlags, const QPoint thePoint )
             mView->Pan(thePoint.x() - mXmax, mYmax - thePoint.y());
             mXmax = thePoint.x();
             mYmax = thePoint.y();
+            break;
+
+         default:
             break;
         }
     }
