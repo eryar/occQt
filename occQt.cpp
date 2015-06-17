@@ -254,7 +254,7 @@ void occQt::about()
 
 void occQt::makeBox()
 {
-    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(3.0, 4.0, 5.0).Solid();
+    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(3.0, 4.0, 5.0).Shape();
     Handle_AIS_Shape anAisBox = new AIS_Shape(aTopoBox);
 
     anAisBox->SetColor(Quantity_NOC_AZURE);
@@ -267,13 +267,13 @@ void occQt::makeCone()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 10.0, 0.0));
 
-    TopoDS_Shape aTopoReducer = BRepPrimAPI_MakeCone(anAxis, 3.0, 1.5, 5.0).Solid();
+    TopoDS_Shape aTopoReducer = BRepPrimAPI_MakeCone(anAxis, 3.0, 1.5, 5.0).Shape();
     Handle_AIS_Shape anAisReducer = new AIS_Shape(aTopoReducer);
 
     anAisReducer->SetColor(Quantity_NOC_BISQUE);
 
     anAxis.SetLocation(gp_Pnt(8.0, 10.0, 0.0));
-    TopoDS_Shape aTopoCone = BRepPrimAPI_MakeCone(anAxis, 3.0, 0.0, 5.0).Solid();
+    TopoDS_Shape aTopoCone = BRepPrimAPI_MakeCone(anAxis, 3.0, 0.0, 5.0).Shape();
     Handle_AIS_Shape anAisCone = new AIS_Shape(aTopoCone);
 
     anAisCone->SetColor(Quantity_NOC_CHOCOLATE);
@@ -287,7 +287,7 @@ void occQt::makeSphere()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 20.0, 0.0));
 
-    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 3.0).Solid();
+    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 3.0).Shape();
     Handle_AIS_Shape anAisSphere = new AIS_Shape(aTopoSphere);
 
     anAisSphere->SetColor(Quantity_NOC_BLUE1);
@@ -300,13 +300,13 @@ void occQt::makeCylinder()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 30.0, 0.0));
 
-    TopoDS_Shape aTopoCylinder = BRepPrimAPI_MakeCylinder(anAxis, 3.0, 5.0).Solid();
+    TopoDS_Shape aTopoCylinder = BRepPrimAPI_MakeCylinder(anAxis, 3.0, 5.0).Shape();
     Handle_AIS_Shape anAisCylinder = new AIS_Shape(aTopoCylinder);
 
     anAisCylinder->SetColor(Quantity_NOC_RED);
 
     anAxis.SetLocation(gp_Pnt(8.0, 30.0, 0.0));
-    TopoDS_Shape aTopoPie = BRepPrimAPI_MakeCylinder(anAxis, 3.0, 5.0, M_PI_2 * 3.0).Solid();
+    TopoDS_Shape aTopoPie = BRepPrimAPI_MakeCylinder(anAxis, 3.0, 5.0, M_PI_2 * 3.0).Shape();
     Handle_AIS_Shape anAisPie = new AIS_Shape(aTopoPie);
 
     anAisPie->SetColor(Quantity_NOC_TAN);
@@ -320,13 +320,13 @@ void occQt::makeTorus()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 40.0, 0.0));
 
-    TopoDS_Shape aTopoTorus = BRepPrimAPI_MakeTorus(anAxis, 3.0, 1.0).Solid();
+    TopoDS_Shape aTopoTorus = BRepPrimAPI_MakeTorus(anAxis, 3.0, 1.0).Shape();
     Handle_AIS_Shape anAisTorus = new AIS_Shape(aTopoTorus);
 
     anAisTorus->SetColor(Quantity_NOC_YELLOW);
 
     anAxis.SetLocation(gp_Pnt(8.0, 40.0, 0.0));
-    TopoDS_Shape aTopoElbow = BRepPrimAPI_MakeTorus(anAxis, 3.0, 1.0, M_PI_2).Solid();
+    TopoDS_Shape aTopoElbow = BRepPrimAPI_MakeTorus(anAxis, 3.0, 1.0, M_PI_2).Shape();
     Handle_AIS_Shape anAisElbow = new AIS_Shape(aTopoElbow);
 
     anAisElbow->SetColor(Quantity_NOC_THISTLE);
@@ -340,7 +340,7 @@ void occQt::makeFillet()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 50.0, 0.0));
 
-    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Solid();
+    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Shape();
     BRepFilletAPI_MakeFillet MF(aTopoBox);
 
     // Add all the edges to fillet.
@@ -360,7 +360,7 @@ void occQt::makeChamfer()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(8.0, 50.0, 0.0));
 
-    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Solid();
+    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Shape();
     BRepFilletAPI_MakeChamfer MC(aTopoBox);
     TopTools_IndexedDataMapOfShapeListOfShape aEdgeFaceMap;
 
@@ -509,8 +509,8 @@ void occQt::testCut()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 90.0, 0.0));
 
-    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Solid();
-    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 2.5).Solid();
+    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Shape();
+    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 2.5).Shape();
     TopoDS_Shape aCuttedShape1 = BRepAlgoAPI_Cut(aTopoBox, aTopoSphere);
     TopoDS_Shape aCuttedShape2 = BRepAlgoAPI_Cut(aTopoSphere, aTopoBox);
 
@@ -542,8 +542,8 @@ void occQt::testFuse()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 100.0, 0.0));
 
-    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Solid();
-    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 2.5).Solid();
+    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Shape();
+    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 2.5).Shape();
     TopoDS_Shape aFusedShape = BRepAlgoAPI_Fuse(aTopoBox, aTopoSphere);
 
     gp_Trsf aTrsf;
@@ -568,8 +568,8 @@ void occQt::testCommon()
     gp_Ax2 anAxis;
     anAxis.SetLocation(gp_Pnt(0.0, 110.0, 0.0));
 
-    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Solid();
-    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 2.5).Solid();
+    TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(anAxis, 3.0, 4.0, 5.0).Shape();
+    TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 2.5).Shape();
     TopoDS_Shape aCommonShape = BRepAlgoAPI_Common(aTopoBox, aTopoSphere);
 
     gp_Trsf aTrsf;
