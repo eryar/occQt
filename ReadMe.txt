@@ -14,6 +14,10 @@ sudo apt-get install qt5-default qt5-qmake qtbase5-dev-tools qtcreator  libglu1-
 Then from the FreeCad ppa (make sure you have http://ppa.launchpad.net/freecad-maintainers/freecad-daily/ubuntu in your apt sources list):
 sudo apt-get install oce-draw liboce-modeling-dev liboce-ocaf-dev 
 
+Building occQt on Windows
+=========================
+First you need the qt-vs-addin, then open the occQt.pro from the Qt menu in the Visual Studio.
+
 Note
 ====
 1. Demonstrate the operations for the OpenCASCADE viewer, such as pan, zoom and rotate;
