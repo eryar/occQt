@@ -30,7 +30,7 @@ Note
 5. Enjoy!
 
 
-for more info, please visit the web site:
+For more info, please visit the web site:
 http://www.cppblog.com/eryar/
 
 Feedback:
