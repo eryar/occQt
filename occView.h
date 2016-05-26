@@ -41,7 +41,7 @@ public:
     //! constructor.
     OccView(QWidget* parent);
 
-    Handle_AIS_InteractiveContext getContext() const;
+    const Handle_AIS_InteractiveContext& getContext() const;
 
 signals:
     void selectionChanged(void);
@@ -79,6 +79,7 @@ protected:
     virtual void addItemInPopup(QMenu* theMenu);
 
 protected:
+    void init(void);
     void popup(const int x, const int y);
     void dragEvent(const int x, const int y);
     void inputEvent(const int x, const int y);
@@ -92,28 +93,28 @@ protected:
 private:
 
     //! the occ viewer.
-    Handle_V3d_Viewer mViewer;
+    Handle_V3d_Viewer myViewer;
 
     //! the occ view.
-    Handle_V3d_View mView;
+    Handle_V3d_View myView;
 
     //! the occ context.
-    Handle_AIS_InteractiveContext mContext;
+    Handle_AIS_InteractiveContext myContext;
 
     //! save the mouse position.
-    Standard_Integer mXmin;
-    Standard_Integer mYmin;
-    Standard_Integer mXmax;
-    Standard_Integer mYmax;
+    Standard_Integer myXmin;
+    Standard_Integer myYmin;
+    Standard_Integer myXmax;
+    Standard_Integer myYmax;
 
     //! the mouse current mode.
-    CurrentAction3d mCurrentMode;
+    CurrentAction3d myCurrentMode;
 
     //! save the degenerate mode state.
-    Standard_Boolean mDegenerateModeIsOn;
+    Standard_Boolean myDegenerateModeIsOn;
 
     //! rubber rectangle for the mouse selection.
-    QRubberBand* mRectBand;
+    QRubberBand* myRectBand;
 
 };
 

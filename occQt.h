@@ -136,11 +136,7 @@ private:
     QToolBar* mHelpToolBar;
 
     // wrapped the widget for occ.
-    OccView* mOccView;
-
-    //! the interactive context.
-    Handle_AIS_InteractiveContext mContext;
-
+    OccView* myOccView;
 };
 
 #endif // OCCQT_H

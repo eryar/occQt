@@ -56,11 +56,9 @@ occQt::occQt(QWidget *parent)
 {
     ui.setupUi(this);
 
-    mOccView = new OccView(this);
+    myOccView = new OccView(this);
 
-    mContext = mOccView->getContext();
-
-    setCentralWidget(mOccView);
+    setCentralWidget(myOccView);
 
     createActions();
     createMenus();
@@ -83,27 +81,27 @@ void occQt::createActions( void )
     mViewZoomAction = new QAction(tr("Zoom"), this);
     mViewZoomAction->setIcon(QIcon(":/Resources/Zoom.png"));
     mViewZoomAction->setStatusTip(tr("Zoom the view"));
-    connect(mViewZoomAction, SIGNAL(triggered()), mOccView, SLOT(zoom()));
+    connect(mViewZoomAction, SIGNAL(triggered()), myOccView, SLOT(zoom()));
 
     mViewPanAction = new QAction(tr("Pan"), this);
     mViewPanAction->setIcon(QIcon(":/Resources/Pan.png"));
     mViewPanAction->setStatusTip(tr("Pan the view"));
-    connect(mViewPanAction, SIGNAL(triggered()), mOccView, SLOT(pan()));
+    connect(mViewPanAction, SIGNAL(triggered()), myOccView, SLOT(pan()));
 
     mViewRotateAction = new QAction(tr("Rotate"), this);
     mViewRotateAction->setIcon(QIcon(":/Resources/Rotate.png"));
     mViewRotateAction->setStatusTip(tr("Rotate the view"));
-    connect(mViewRotateAction, SIGNAL(triggered()), mOccView, SLOT(rotate()));
+    connect(mViewRotateAction, SIGNAL(triggered()), myOccView, SLOT(rotate()));
 
     mViewResetAction = new QAction(tr("Reset"), this);
     mViewResetAction->setIcon(QIcon(":/Resources/Home.png"));
     mViewResetAction->setStatusTip(tr("Reset the view"));
-    connect(mViewResetAction, SIGNAL(triggered()), mOccView, SLOT(reset()));
+    connect(mViewResetAction, SIGNAL(triggered()), myOccView, SLOT(reset()));
 
     mViewFitallAction = new QAction(tr("Fit All"), this);
     mViewFitallAction->setIcon(QIcon(":/Resources/FitAll.png"));
     mViewFitallAction->setStatusTip(tr("Fit all "));
-    connect(mViewFitallAction, SIGNAL(triggered()), mOccView, SLOT(fitAll()));
+    connect(mViewFitallAction, SIGNAL(triggered()), myOccView, SLOT(fitAll()));
 
     mMakeBoxAction = new QAction(tr("Box"), this);
     mMakeBoxAction->setIcon(QIcon(":/Resources/box.png"));
@@ -259,7 +257,7 @@ void occQt::makeBox()
 
     anAisBox->SetColor(Quantity_NOC_AZURE);
 
-    mContext->Display(anAisBox);
+    myOccView->getContext()->Display(anAisBox);
 }
 
 void occQt::makeCone()
@@ -278,8 +276,8 @@ void occQt::makeCone()
 
     anAisCone->SetColor(Quantity_NOC_CHOCOLATE);
 
-    mContext->Display(anAisReducer);
-    mContext->Display(anAisCone);
+    myOccView->getContext()->Display(anAisReducer);
+    myOccView->getContext()->Display(anAisCone);
 }
 
 void occQt::makeSphere()
@@ -292,7 +290,7 @@ void occQt::makeSphere()
 
     anAisSphere->SetColor(Quantity_NOC_BLUE1);
 
-    mContext->Display(anAisSphere);
+    myOccView->getContext()->Display(anAisSphere);
 }
 
 void occQt::makeCylinder()
@@ -311,8 +309,8 @@ void occQt::makeCylinder()
 
     anAisPie->SetColor(Quantity_NOC_TAN);
 
-    mContext->Display(anAisCylinder);
-    mContext->Display(anAisPie);
+    myOccView->getContext()->Display(anAisCylinder);
+    myOccView->getContext()->Display(anAisPie);
 }
 
 void occQt::makeTorus()
@@ -331,8 +329,8 @@ void occQt::makeTorus()
 
     anAisElbow->SetColor(Quantity_NOC_THISTLE);
 
-    mContext->Display(anAisTorus);
-    mContext->Display(anAisElbow);
+    myOccView->getContext()->Display(anAisTorus);
+    myOccView->getContext()->Display(anAisElbow);
 }
 
 void occQt::makeFillet()
@@ -352,7 +350,7 @@ void occQt::makeFillet()
     Handle_AIS_Shape anAisShape = new AIS_Shape(MF.Shape());
     anAisShape->SetColor(Quantity_NOC_VIOLET);
 
-    mContext->Display(anAisShape);
+    myOccView->getContext()->Display(anAisShape);
 }
 
 void occQt::makeChamfer()
@@ -377,7 +375,7 @@ void occQt::makeChamfer()
     Handle_AIS_Shape anAisShape = new AIS_Shape(MC.Shape());
     anAisShape->SetColor(Quantity_NOC_TOMATO);
 
-    mContext->Display(anAisShape);
+    myOccView->getContext()->Display(anAisShape);
 }
 
 void occQt::makeExtrude()
@@ -414,10 +412,10 @@ void occQt::makeExtrude()
     anAisPrismCircle->SetColor(Quantity_NOC_PERU);
     anAisPrismEllipse->SetColor(Quantity_NOC_PINK);
 
-    mContext->Display(anAisPrismVertex);
-    mContext->Display(anAisPrismEdge);
-    mContext->Display(anAisPrismCircle);
-    mContext->Display(anAisPrismEllipse);
+    myOccView->getContext()->Display(anAisPrismVertex);
+    myOccView->getContext()->Display(anAisPrismEdge);
+    myOccView->getContext()->Display(anAisPrismCircle);
+    myOccView->getContext()->Display(anAisPrismEllipse);
 }
 
 void occQt::makeRevol()
@@ -460,10 +458,10 @@ void occQt::makeRevol()
     anAisRevolCircle->SetColor(Quantity_NOC_MAGENTA1);
     anAisRevolEllipse->SetColor(Quantity_NOC_MAROON);
 
-    mContext->Display(anAisRevolVertex);
-    mContext->Display(anAisRevolEdge);
-    mContext->Display(anAisRevolCircle);
-    mContext->Display(anAisRevolEllipse);
+    myOccView->getContext()->Display(anAisRevolVertex);
+    myOccView->getContext()->Display(anAisRevolEdge);
+    myOccView->getContext()->Display(anAisRevolCircle);
+    myOccView->getContext()->Display(anAisRevolEllipse);
 }
 
 void occQt::makeLoft()
@@ -500,8 +498,8 @@ void occQt::makeLoft()
     anAisShell->SetColor(Quantity_NOC_OLIVEDRAB);
     anAisSolid->SetColor(Quantity_NOC_PEACHPUFF);
 
-    mContext->Display(anAisShell);
-    mContext->Display(anAisSolid);
+    myOccView->getContext()->Display(anAisShell);
+    myOccView->getContext()->Display(anAisSolid);
 }
 
 void occQt::testCut()
@@ -531,10 +529,10 @@ void occQt::testCut()
     anAisCuttedShape1->SetColor(Quantity_NOC_TAN);
     anAisCuttedShape2->SetColor(Quantity_NOC_SALMON);
 
-    mContext->Display(anAisBox);
-    mContext->Display(anAisSphere);
-    mContext->Display(anAisCuttedShape1);
-    mContext->Display(anAisCuttedShape2);
+    myOccView->getContext()->Display(anAisBox);
+    myOccView->getContext()->Display(anAisSphere);
+    myOccView->getContext()->Display(anAisCuttedShape1);
+    myOccView->getContext()->Display(anAisCuttedShape2);
 }
 
 void occQt::testFuse()
@@ -558,9 +556,9 @@ void occQt::testFuse()
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
     anAisFusedShape->SetColor(Quantity_NOC_ROSYBROWN);
 
-    mContext->Display(anAisBox);
-    mContext->Display(anAisSphere);
-    mContext->Display(anAisFusedShape);
+    myOccView->getContext()->Display(anAisBox);
+    myOccView->getContext()->Display(anAisSphere);
+    myOccView->getContext()->Display(anAisFusedShape);
 }
 
 void occQt::testCommon()
@@ -584,8 +582,8 @@ void occQt::testCommon()
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
     anAisCommonShape->SetColor(Quantity_NOC_ROYALBLUE);
 
-    mContext->Display(anAisBox);
-    mContext->Display(anAisSphere);
-    mContext->Display(anAisCommonShape);
+    myOccView->getContext()->Display(anAisBox);
+    myOccView->getContext()->Display(anAisSphere);
+    myOccView->getContext()->Display(anAisCommonShape);
 }
 
