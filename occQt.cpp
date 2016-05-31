@@ -9,10 +9,6 @@
 *    Description : Qt main window for OpenCASCADE.
 */
 
-#ifdef Opposite
-#undef Opposite
-#endif
-
 #include "occQt.h"
 #include "occView.h"
 
