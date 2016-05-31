@@ -9,6 +9,19 @@
 *    Description : Qt widget for OpenCASCADE viewer.
 */
 
+// Moved the #include <OpenGl_GraphicsDriver.hxx> 
+// and added 9 #undef lines to get to build in Linux
+#include <OpenGl_GraphicDriver.hxx>
+#undef Bool
+#undef CursorShape
+#undef None
+#undef KeyPress
+#undef KeyRelease
+#undef FocusIn
+#undef FocusOut
+#undef FontChange
+#undef Expose
+
 #include "occView.h"
 
 #include <QMenu>
@@ -18,8 +31,6 @@
 
 // occ header files.
 #include <V3d_View.hxx>
-
-#include <OpenGl_GraphicDriver.hxx>
 
 #include <Aspect_Handle.hxx>
 #include <Aspect_DisplayConnection.hxx>
@@ -79,11 +90,11 @@ void OccView::init()
 
     // Create appropriate window for platform
     #ifdef WNT
-        Handle_WNT_Window wind = new WNT_Window((Aspect_Handle) window_handle);
+        Handle(WNT_Window) wind = new WNT_Window((Aspect_Handle) window_handle);
     #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
-        Handle_Cocoa_Window wind = new Cocoa_Window((NSView *) window_handle);
+        Handle(Cocoa_Window) wind = new Cocoa_Window((NSView *) window_handle);
     #else
-        Handle_Xw_Window wind = new Xw_Window(aDisplayConnection, (Window) window_handle);
+        Handle(Xw_Window) wind = new Xw_Window(aDisplayConnection, (Window) window_handle);
     #endif
 
     // Create V3dViewer and V3d_View
@@ -108,7 +119,7 @@ void OccView::init()
     myContext->SetDisplayMode(AIS_Shaded);
 }
 
-const Handle_AIS_InteractiveContext& OccView::getContext() const
+const Handle(AIS_InteractiveContext)& OccView::getContext() const
 {
     return myContext;
 }

@@ -23,8 +23,11 @@ int main(int argc, char *argv[])
     // There is no option to disable this functionality, thus your application should 
     // configure CSF_ShadersDirectory to proper location in addition to other OCCT resources.
     // We will take to update description of CSF_ShadersDirectory variable in OCCT documentation.
-    OSD_Environment aShaderEnv("CSF_ShadersDirectory", "D:/OpenCASCADE6.9.0/opencascade-6.9.0/src/Shaders");
-    aShaderEnv.Build();
+
+    // I commented this out and set CSF_ShadersDirectory in my environment
+
+    //OSD_Environment aShaderEnv("CSF_ShadersDirectory", "/opt/occ/share/opencascade/resources/Shaders");
+    //aShaderEnv.Build();
 
     QApplication a(argc, argv);
 

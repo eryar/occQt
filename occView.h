@@ -93,13 +93,13 @@ protected:
 private:
 
     //! the occ viewer.
-    Handle_V3d_Viewer myViewer;
+    Handle(V3d_Viewer) myViewer;
 
     //! the occ view.
-    Handle_V3d_View myView;
+    Handle(V3d_View) myView;
 
     //! the occ context.
-    Handle_AIS_InteractiveContext myContext;
+    Handle(AIS_InteractiveContext) myContext;
 
     //! save the mouse position.
     Standard_Integer myXmin;
