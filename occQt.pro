@@ -15,6 +15,8 @@ SOURCES += main.cpp \
     occQt.cpp       \
     occView.cpp
 
+CONFIG += c++11
+
 HEADERS  += \
     occQt.h \
     occView.h
