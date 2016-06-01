@@ -11,10 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = occQt
 TEMPLATE = app
 
-DEFINES += WNT
-
 SOURCES += main.cpp \
-    occQt.cpp \
+    occQt.cpp       \
     occView.cpp
 
 HEADERS  += \
@@ -24,23 +22,72 @@ HEADERS  += \
 FORMS    += \
     occQt.ui
 
-OCCT_ROOT = D:/OpenCASCADE6.9.0/opencascade-6.9.0
-OCCT_LIB = $$OCCT_ROOT/win32/vc9/libd
-
-INCLUDEPATH += $$OCCT_ROOT\inc
-
-debug:LIBS += \
-    -L$${OCCT_LIB} -lTKernel \
-    -L$${OCCT_LIB} -lTKMath \
-    -L$${OCCT_LIB} -lTKBRep \
-    -L$${OCCT_LIB} -lTKTopAlgo \
-    -L$${OCCT_LIB} -lTKPrim \
-    -L$${OCCT_LIB} -lTKBO \
-    -L$${OCCT_LIB} -lTKOffset \
-    -L$${OCCT_LIB} -lTKService \
-    -L$${OCCT_LIB} -lTKV3d \
-    -L$${OCCT_LIB} -lTKOpenGl \
-    -L$${OCCT_LIB} -lTKFillet
-
 RESOURCES += \
     occqt.qrc
+
+win32 {
+    DEFINES +=  \
+        WNT
+    INCLUDEPATH +=  \
+        $$(CASROOT)/inc
+
+    win32-msvc2010 {
+        compiler=vc10
+    }
+
+    win32-msvc2012 {
+        compiler=vc11
+    }
+
+    win32-msvc2013 {
+        compiler=vc12
+    }
+
+    win32-msvc2015 {
+        compiler=vc14
+    }
+
+    # Determine 32 / 64 bit and debug / release build
+    !contains(QMAKE_TARGET.arch, x86_64) {
+        CONFIG(debug, debug|release) {
+            message("Debug 32 build")
+            LIBS += -L$$(CASROOT)/win32/$$compiler/libd
+        }
+        else {
+            message("Release 32 build")
+            LIBS += -L$$(CASROOT)/win32/$$compiler/lib
+        }
+    }
+    else {
+        CONFIG(debug, debug|release) {
+            message("Debug 64 build")
+            LIBS += -L$$(CASROOT)/win64/$$compiler/libd
+        }
+        else {
+            message("Release 64 build")
+            LIBS += -L$$(CASROOT)/win64/$$compiler/lib
+        }
+    }
+}
+
+linux-g++ {
+    INCLUDEPATH +=  \
+        $$(CASROOT)/include/opencascade
+
+    LIBS +=         \
+        -L$$(CASROOT)/lib
+}
+
+LIBS +=         \
+    -lTKernel   \
+    -lTKMath    \
+    -lTKBRep    \
+    -lTKTopAlgo \
+    -lTKPrim    \
+    -lTKBO      \
+    -lTKOffset  \
+    -lTKService \
+    -lTKV3d     \
+    -lTKOpenGl  \
+    -lTKFillet
+

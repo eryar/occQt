@@ -253,7 +253,7 @@ void occQt::about()
 void occQt::makeBox()
 {
     TopoDS_Shape aTopoBox = BRepPrimAPI_MakeBox(3.0, 4.0, 5.0).Shape();
-    Handle_AIS_Shape anAisBox = new AIS_Shape(aTopoBox);
+    Handle(AIS_Shape) anAisBox = new AIS_Shape(aTopoBox);
 
     anAisBox->SetColor(Quantity_NOC_AZURE);
 
@@ -266,13 +266,13 @@ void occQt::makeCone()
     anAxis.SetLocation(gp_Pnt(0.0, 10.0, 0.0));
 
     TopoDS_Shape aTopoReducer = BRepPrimAPI_MakeCone(anAxis, 3.0, 1.5, 5.0).Shape();
-    Handle_AIS_Shape anAisReducer = new AIS_Shape(aTopoReducer);
+    Handle(AIS_Shape) anAisReducer = new AIS_Shape(aTopoReducer);
 
     anAisReducer->SetColor(Quantity_NOC_BISQUE);
 
     anAxis.SetLocation(gp_Pnt(8.0, 10.0, 0.0));
     TopoDS_Shape aTopoCone = BRepPrimAPI_MakeCone(anAxis, 3.0, 0.0, 5.0).Shape();
-    Handle_AIS_Shape anAisCone = new AIS_Shape(aTopoCone);
+    Handle(AIS_Shape) anAisCone = new AIS_Shape(aTopoCone);
 
     anAisCone->SetColor(Quantity_NOC_CHOCOLATE);
 
@@ -286,7 +286,7 @@ void occQt::makeSphere()
     anAxis.SetLocation(gp_Pnt(0.0, 20.0, 0.0));
 
     TopoDS_Shape aTopoSphere = BRepPrimAPI_MakeSphere(anAxis, 3.0).Shape();
-    Handle_AIS_Shape anAisSphere = new AIS_Shape(aTopoSphere);
+    Handle(AIS_Shape) anAisSphere = new AIS_Shape(aTopoSphere);
 
     anAisSphere->SetColor(Quantity_NOC_BLUE1);
 
@@ -299,13 +299,13 @@ void occQt::makeCylinder()
     anAxis.SetLocation(gp_Pnt(0.0, 30.0, 0.0));
 
     TopoDS_Shape aTopoCylinder = BRepPrimAPI_MakeCylinder(anAxis, 3.0, 5.0).Shape();
-    Handle_AIS_Shape anAisCylinder = new AIS_Shape(aTopoCylinder);
+    Handle(AIS_Shape) anAisCylinder = new AIS_Shape(aTopoCylinder);
 
     anAisCylinder->SetColor(Quantity_NOC_RED);
 
     anAxis.SetLocation(gp_Pnt(8.0, 30.0, 0.0));
     TopoDS_Shape aTopoPie = BRepPrimAPI_MakeCylinder(anAxis, 3.0, 5.0, M_PI_2 * 3.0).Shape();
-    Handle_AIS_Shape anAisPie = new AIS_Shape(aTopoPie);
+    Handle(AIS_Shape) anAisPie = new AIS_Shape(aTopoPie);
 
     anAisPie->SetColor(Quantity_NOC_TAN);
 
@@ -319,13 +319,13 @@ void occQt::makeTorus()
     anAxis.SetLocation(gp_Pnt(0.0, 40.0, 0.0));
 
     TopoDS_Shape aTopoTorus = BRepPrimAPI_MakeTorus(anAxis, 3.0, 1.0).Shape();
-    Handle_AIS_Shape anAisTorus = new AIS_Shape(aTopoTorus);
+    Handle(AIS_Shape) anAisTorus = new AIS_Shape(aTopoTorus);
 
     anAisTorus->SetColor(Quantity_NOC_YELLOW);
 
     anAxis.SetLocation(gp_Pnt(8.0, 40.0, 0.0));
     TopoDS_Shape aTopoElbow = BRepPrimAPI_MakeTorus(anAxis, 3.0, 1.0, M_PI_2).Shape();
-    Handle_AIS_Shape anAisElbow = new AIS_Shape(aTopoElbow);
+    Handle(AIS_Shape) anAisElbow = new AIS_Shape(aTopoElbow);
 
     anAisElbow->SetColor(Quantity_NOC_THISTLE);
 
@@ -347,7 +347,7 @@ void occQt::makeFillet()
         MF.Add(1.0, TopoDS::Edge(ex.Current()));
     }
 
-    Handle_AIS_Shape anAisShape = new AIS_Shape(MF.Shape());
+    Handle(AIS_Shape) anAisShape = new AIS_Shape(MF.Shape());
     anAisShape->SetColor(Quantity_NOC_VIOLET);
 
     myOccView->getContext()->Display(anAisShape);
@@ -372,7 +372,7 @@ void occQt::makeChamfer()
         MC.Add(0.6, 0.6, anEdge, aFace);
     }
 
-    Handle_AIS_Shape anAisShape = new AIS_Shape(MC.Shape());
+    Handle(AIS_Shape) anAisShape = new AIS_Shape(MC.Shape());
     anAisShape->SetColor(Quantity_NOC_TOMATO);
 
     myOccView->getContext()->Display(anAisShape);
@@ -383,12 +383,12 @@ void occQt::makeExtrude()
     // prism a vertex result is an edge.
     TopoDS_Vertex aVertex = BRepBuilderAPI_MakeVertex(gp_Pnt(0.0, 60.0, 0.0));
     TopoDS_Shape aPrismVertex = BRepPrimAPI_MakePrism(aVertex, gp_Vec(0.0, 0.0, 5.0));
-    Handle_AIS_Shape anAisPrismVertex = new AIS_Shape(aPrismVertex);
+    Handle(AIS_Shape) anAisPrismVertex = new AIS_Shape(aPrismVertex);
 
     // prism an edge result is a face.
     TopoDS_Edge anEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(5.0, 60.0, 0.0), gp_Pnt(10.0, 60.0, 0.0));
     TopoDS_Shape aPrismEdge = BRepPrimAPI_MakePrism(anEdge, gp_Vec(0.0, 0.0, 5.0));
-    Handle_AIS_Shape anAisPrismEdge = new AIS_Shape(aPrismEdge);
+    Handle(AIS_Shape) anAisPrismEdge = new AIS_Shape(aPrismEdge);
 
     // prism a wire result is a shell.
     gp_Ax2 anAxis;
@@ -397,7 +397,7 @@ void occQt::makeExtrude()
     TopoDS_Edge aCircleEdge = BRepBuilderAPI_MakeEdge(gp_Circ(anAxis, 3.0));
     TopoDS_Wire aCircleWire = BRepBuilderAPI_MakeWire(aCircleEdge);
     TopoDS_Shape aPrismCircle = BRepPrimAPI_MakePrism(aCircleWire, gp_Vec(0.0, 0.0, 5.0));
-    Handle_AIS_Shape anAisPrismCircle = new AIS_Shape(aPrismCircle);
+    Handle(AIS_Shape) anAisPrismCircle = new AIS_Shape(aPrismCircle);
 
     // prism a face or a shell result is a solid.
     anAxis.SetLocation(gp_Pnt(24.0, 60.0, 0.0));
@@ -405,7 +405,7 @@ void occQt::makeExtrude()
     TopoDS_Wire aEllipseWire = BRepBuilderAPI_MakeWire(aEllipseEdge);
     TopoDS_Face aEllipseFace = BRepBuilderAPI_MakeFace(gp_Pln(gp::XOY()), aEllipseWire);
     TopoDS_Shape aPrismEllipse = BRepPrimAPI_MakePrism(aEllipseFace, gp_Vec(0.0, 0.0, 5.0));
-    Handle_AIS_Shape anAisPrismEllipse = new AIS_Shape(aPrismEllipse);
+    Handle(AIS_Shape) anAisPrismEllipse = new AIS_Shape(aPrismEllipse);
 
     anAisPrismVertex->SetColor(Quantity_NOC_PAPAYAWHIP);
     anAisPrismEdge->SetColor(Quantity_NOC_PEACHPUFF);
@@ -426,13 +426,13 @@ void occQt::makeRevol()
     anAxis.SetLocation(gp_Pnt(0.0, 70.0, 0.0));
     TopoDS_Vertex aVertex = BRepBuilderAPI_MakeVertex(gp_Pnt(2.0, 70.0, 0.0));
     TopoDS_Shape aRevolVertex = BRepPrimAPI_MakeRevol(aVertex, anAxis);
-    Handle_AIS_Shape anAisRevolVertex = new AIS_Shape(aRevolVertex);
+    Handle(AIS_Shape) anAisRevolVertex = new AIS_Shape(aRevolVertex);
 
     // revol an edge result is a face.
     anAxis.SetLocation(gp_Pnt(8.0, 70.0, 0.0));
     TopoDS_Edge anEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(6.0, 70.0, 0.0), gp_Pnt(6.0, 70.0, 5.0));
     TopoDS_Shape aRevolEdge = BRepPrimAPI_MakeRevol(anEdge, anAxis);
-    Handle_AIS_Shape anAisRevolEdge = new AIS_Shape(aRevolEdge);
+    Handle(AIS_Shape) anAisRevolEdge = new AIS_Shape(aRevolEdge);
 
     // revol a wire result is a shell.
     anAxis.SetLocation(gp_Pnt(20.0, 70.0, 0.0));
@@ -441,7 +441,7 @@ void occQt::makeRevol()
     TopoDS_Edge aCircleEdge = BRepBuilderAPI_MakeEdge(gp_Circ(gp_Ax2(gp_Pnt(15.0, 70.0, 0.0), gp::DZ()), 1.5));
     TopoDS_Wire aCircleWire = BRepBuilderAPI_MakeWire(aCircleEdge);
     TopoDS_Shape aRevolCircle = BRepPrimAPI_MakeRevol(aCircleWire, anAxis, M_PI_2);
-    Handle_AIS_Shape anAisRevolCircle = new AIS_Shape(aRevolCircle);
+    Handle(AIS_Shape) anAisRevolCircle = new AIS_Shape(aRevolCircle);
 
     // revol a face result is a solid.
     anAxis.SetLocation(gp_Pnt(30.0, 70.0, 0.0));
@@ -451,7 +451,7 @@ void occQt::makeRevol()
     TopoDS_Wire aEllipseWire = BRepBuilderAPI_MakeWire(aEllipseEdge);
     TopoDS_Face aEllipseFace = BRepBuilderAPI_MakeFace(gp_Pln(gp::XOY()), aEllipseWire);
     TopoDS_Shape aRevolEllipse = BRepPrimAPI_MakeRevol(aEllipseFace, anAxis, M_PI_4);
-    Handle_AIS_Shape anAisRevolEllipse = new AIS_Shape(aRevolEllipse);
+    Handle(AIS_Shape) anAisRevolEllipse = new AIS_Shape(aRevolEllipse);
 
     anAisRevolVertex->SetColor(Quantity_NOC_LIMEGREEN);
     anAisRevolEdge->SetColor(Quantity_NOC_LINEN);
@@ -492,8 +492,8 @@ void occQt::makeLoft()
     aTrsf.SetTranslation(gp_Vec(18.0, 0.0, 0.0));
     BRepBuilderAPI_Transform aTransform(aSolidGenerator.Shape(), aTrsf);
 
-    Handle_AIS_Shape anAisShell = new AIS_Shape(aShellGenerator.Shape());
-    Handle_AIS_Shape anAisSolid = new AIS_Shape(aTransform.Shape());
+    Handle(AIS_Shape) anAisShell = new AIS_Shape(aShellGenerator.Shape());
+    Handle(AIS_Shape) anAisSolid = new AIS_Shape(aTransform.Shape());
 
     anAisShell->SetColor(Quantity_NOC_OLIVEDRAB);
     anAisSolid->SetColor(Quantity_NOC_PEACHPUFF);
@@ -519,10 +519,10 @@ void occQt::testCut()
     aTrsf.SetTranslation(gp_Vec(16.0, 0.0, 0.0));
     BRepBuilderAPI_Transform aTransform2(aCuttedShape2, aTrsf);
 
-    Handle_AIS_Shape anAisBox = new AIS_Shape(aTopoBox);
-    Handle_AIS_Shape anAisSphere = new AIS_Shape(aTopoSphere);
-    Handle_AIS_Shape anAisCuttedShape1 = new AIS_Shape(aTransform1.Shape());
-    Handle_AIS_Shape anAisCuttedShape2 = new AIS_Shape(aTransform2.Shape());
+    Handle(AIS_Shape) anAisBox = new AIS_Shape(aTopoBox);
+    Handle(AIS_Shape) anAisSphere = new AIS_Shape(aTopoSphere);
+    Handle(AIS_Shape) anAisCuttedShape1 = new AIS_Shape(aTransform1.Shape());
+    Handle(AIS_Shape) anAisCuttedShape2 = new AIS_Shape(aTransform2.Shape());
 
     anAisBox->SetColor(Quantity_NOC_SPRINGGREEN);
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
@@ -548,9 +548,9 @@ void occQt::testFuse()
     aTrsf.SetTranslation(gp_Vec(8.0, 0.0, 0.0));
     BRepBuilderAPI_Transform aTransform(aFusedShape, aTrsf);
 
-    Handle_AIS_Shape anAisBox = new AIS_Shape(aTopoBox);
-    Handle_AIS_Shape anAisSphere = new AIS_Shape(aTopoSphere);
-    Handle_AIS_Shape anAisFusedShape = new AIS_Shape(aTransform.Shape());
+    Handle(AIS_Shape) anAisBox = new AIS_Shape(aTopoBox);
+    Handle(AIS_Shape) anAisSphere = new AIS_Shape(aTopoSphere);
+    Handle(AIS_Shape) anAisFusedShape = new AIS_Shape(aTransform.Shape());
 
     anAisBox->SetColor(Quantity_NOC_SPRINGGREEN);
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
@@ -574,9 +574,9 @@ void occQt::testCommon()
     aTrsf.SetTranslation(gp_Vec(8.0, 0.0, 0.0));
     BRepBuilderAPI_Transform aTransform(aCommonShape, aTrsf);
 
-    Handle_AIS_Shape anAisBox = new AIS_Shape(aTopoBox);
-    Handle_AIS_Shape anAisSphere = new AIS_Shape(aTopoSphere);
-    Handle_AIS_Shape anAisCommonShape = new AIS_Shape(aTransform.Shape());
+    Handle(AIS_Shape) anAisBox = new AIS_Shape(aTopoBox);
+    Handle(AIS_Shape) anAisSphere = new AIS_Shape(aTopoSphere);
+    Handle(AIS_Shape) anAisCommonShape = new AIS_Shape(aTransform.Shape());
 
     anAisBox->SetColor(Quantity_NOC_SPRINGGREEN);
     anAisSphere->SetColor(Quantity_NOC_STEELBLUE);
