@@ -40,9 +40,6 @@ protected:
     //! create the toolbar.
     void createToolBars(void);
 
-    // initialize the OpenCASCADE modeler.
-    void InitializeModeler(void);
-
 private slots:
     //! show about box.
     void about(void);
@@ -86,8 +83,20 @@ private slots:
     //! test boolean operation common.
     void testCommon(void);
 
+    //! test helix shapes.
+    void testHelix(void);
+
 private:
     Ui::occQtClass ui;
+
+    //! make cylindrical helix.
+    void makeCylindricalHelix(void);
+
+    //! make conical helix.
+    void makeConicalHelix(void);
+
+    //! make toroidal helix.
+    void makeToroidalHelix(void);
 
 private:
     //! the exit action.
@@ -118,6 +127,9 @@ private:
     QAction* mCutAction;
     QAction* mFuseAction;
     QAction* mCommonAction;
+
+    //! helix shapes.
+    QAction* myHelixAction;
 
     //! show the about info action.
     QAction* mAboutAction;

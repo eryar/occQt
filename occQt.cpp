@@ -168,6 +168,11 @@ void occQt::createActions( void )
     mCommonAction->setStatusTip(tr("Boolean operation common"));
     connect(mCommonAction, SIGNAL(triggered()), this, SLOT(testCommon()));
 
+    myHelixAction = new QAction(tr("Helix"), this);
+    myHelixAction->setIcon(QIcon(":/Resources/helix.png"));
+    myHelixAction->setStatusTip(tr("Make helix shapes"));
+    connect(myHelixAction, SIGNAL(triggered()), this, SLOT(testHelix()));
+
     mAboutAction = new QAction(tr("About"), this);
     mAboutAction->setStatusTip(tr("About the application"));
     mAboutAction->setIcon(QIcon(":/Resources/lamp.png"));
@@ -204,6 +209,8 @@ void occQt::createMenus( void )
     mModelingMenu->addAction(mCutAction);
     mModelingMenu->addAction(mFuseAction);
     mModelingMenu->addAction(mCommonAction);
+    mModelingMenu->addSeparator();
+    mModelingMenu->addAction(myHelixAction);
 
     mHelpMenu = menuBar()->addMenu(tr("&Help"));
     mHelpMenu->addAction(mAboutAction);
@@ -237,6 +244,8 @@ void occQt::createToolBars( void )
     mModelingToolBar->addAction(mCutAction);
     mModelingToolBar->addAction(mFuseAction);
     mModelingToolBar->addAction(mCommonAction);
+    mModelingToolBar->addSeparator();
+    mModelingToolBar->addAction(myHelixAction);
 
     mHelpToolBar = addToolBar(tr("Help"));
     mHelpToolBar->addAction(mAboutAction);
@@ -587,3 +596,23 @@ void occQt::testCommon()
     myOccView->getContext()->Display(anAisCommonShape);
 }
 
+void occQt::testHelix()
+{
+    makeCylindricalHelix();
+
+    makeConicalHelix();
+
+    makeToroidalHelix();
+}
+
+void occQt::makeCylindricalHelix()
+{
+}
+
+void occQt::makeConicalHelix()
+{
+}
+
+void occQt::makeToroidalHelix()
+{
+}

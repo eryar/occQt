@@ -19,5 +19,6 @@
         <file>Resources/extrude.png</file>
         <file>Resources/loft.png</file>
         <file>Resources/revolve.png</file>
+        <file>Resources/helix.png</file>
     </qresource>
 </RCC>
