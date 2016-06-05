@@ -21,10 +21,20 @@
 #include <gp_Elips.hxx>
 #include <gp_Pln.hxx>
 
+#include <gp_Lin2d.hxx>
+
+#include <Geom_ConicalSurface.hxx>
+#include <Geom_ToroidalSurface.hxx>
+#include <Geom_CylindricalSurface.hxx>
+
+#include <GCE2d_MakeSegment.hxx>
+
 #include <TopoDS.hxx>
 #include <TopExp.hxx>
 #include <TopExp_Explorer.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
+
+#include <BRepLib.hxx>
 
 #include <BRepBuilderAPI_MakeVertex.hxx>
 #include <BRepBuilderAPI_MakeEdge.hxx>
@@ -40,9 +50,11 @@
 #include <BRepPrimAPI_MakeTorus.hxx>
 #include <BRepPrimAPI_MakePrism.hxx>
 #include <BRepPrimAPI_MakeRevol.hxx>
+
 #include <BRepFilletAPI_MakeFillet.hxx>
 #include <BRepFilletAPI_MakeChamfer.hxx>
 
+#include <BRepOffsetAPI_MakePipe.hxx>
 #include <BRepOffsetAPI_ThruSections.hxx>
 
 #include <BRepAlgoAPI_Cut.hxx>
@@ -607,12 +619,157 @@ void occQt::testHelix()
 
 void occQt::makeCylindricalHelix()
 {
+    Standard_Real aRadius = 3.0;
+    Standard_Real aPitch = 1.0;
+
+    // the pcurve is a 2d line in the parametric space.
+    gp_Lin2d aLine2d(gp_Pnt2d(0.0, 0.0), gp_Dir2d(aRadius, aPitch));
+
+    Handle(Geom2d_TrimmedCurve) aSegment = GCE2d_MakeSegment(aLine2d, 0.0, M_PI * 2.0).Value();
+
+    Handle(Geom_CylindricalSurface) aCylinder = new Geom_CylindricalSurface(gp::XOY(), aRadius);
+
+    TopoDS_Edge aHelixEdge = BRepBuilderAPI_MakeEdge(aSegment, aCylinder, 0.0, 6.0 * M_PI).Edge();
+
+    gp_Trsf aTrsf;
+    aTrsf.SetTranslation(gp_Vec(0.0, 120.0, 0.0));
+    BRepBuilderAPI_Transform aTransform(aHelixEdge, aTrsf);
+
+    Handle(AIS_Shape) anAisHelixCurve = new AIS_Shape(aTransform.Shape());
+
+    myOccView->getContext()->Display(anAisHelixCurve);
+
+    // sweep a circle profile along the helix curve.
+    // there is no curve3d in the pcurve edge, so approx one.
+    BRepLib::BuildCurve3d(aHelixEdge);
+
+    gp_Ax2 anAxis;
+    anAxis.SetDirection(gp_Dir(0.0, 4.0, 1.0));
+    anAxis.SetLocation(gp_Pnt(aRadius, 0.0, 0.0));
+
+    gp_Circ aProfileCircle(anAxis, 0.3);
+
+    TopoDS_Edge aProfileEdge = BRepBuilderAPI_MakeEdge(aProfileCircle).Edge();
+    TopoDS_Wire aProfileWire = BRepBuilderAPI_MakeWire(aProfileEdge).Wire();
+    TopoDS_Face aProfileFace = BRepBuilderAPI_MakeFace(aProfileWire).Face();
+
+    TopoDS_Wire aHelixWire = BRepBuilderAPI_MakeWire(aHelixEdge).Wire();
+
+    BRepOffsetAPI_MakePipe aPipeMaker(aHelixWire, aProfileFace);
+
+    if (aPipeMaker.IsDone())
+    {
+        aTrsf.SetTranslation(gp_Vec(8.0, 120.0, 0.0));
+        BRepBuilderAPI_Transform aPipeTransform(aPipeMaker.Shape(), aTrsf);
+
+        Handle(AIS_Shape) anAisPipe = new AIS_Shape(aPipeTransform.Shape());
+        anAisPipe->SetColor(Quantity_NOC_CORAL);
+        myOccView->getContext()->Display(anAisPipe);
+    }
 }
 
+/**
+ * make conical helix, it is the same as the cylindrical helix,
+ * the only different is the surface.
+ */
 void occQt::makeConicalHelix()
 {
+    Standard_Real aRadius = 3.0;
+    Standard_Real aPitch = 1.0;
+
+    // the pcurve is a 2d line in the parametric space.
+    gp_Lin2d aLine2d(gp_Pnt2d(0.0, 0.0), gp_Dir2d(aRadius, aPitch));
+
+    Handle(Geom2d_TrimmedCurve) aSegment = GCE2d_MakeSegment(aLine2d, 0.0, M_PI * 2.0).Value();
+
+    Handle(Geom_ConicalSurface) aCylinder = new Geom_ConicalSurface(gp::XOY(), M_PI / 6.0, aRadius);
+
+    TopoDS_Edge aHelixEdge = BRepBuilderAPI_MakeEdge(aSegment, aCylinder, 0.0, 6.0 * M_PI).Edge();
+
+    gp_Trsf aTrsf;
+    aTrsf.SetTranslation(gp_Vec(18.0, 120.0, 0.0));
+    BRepBuilderAPI_Transform aTransform(aHelixEdge, aTrsf);
+
+    Handle(AIS_Shape) anAisHelixCurve = new AIS_Shape(aTransform.Shape());
+
+    myOccView->getContext()->Display(anAisHelixCurve);
+
+    // sweep a circle profile along the helix curve.
+    // there is no curve3d in the pcurve edge, so approx one.
+    BRepLib::BuildCurve3d(aHelixEdge);
+
+    gp_Ax2 anAxis;
+    anAxis.SetDirection(gp_Dir(0.0, 4.0, 1.0));
+    anAxis.SetLocation(gp_Pnt(aRadius, 0.0, 0.0));
+
+    gp_Circ aProfileCircle(anAxis, 0.3);
+
+    TopoDS_Edge aProfileEdge = BRepBuilderAPI_MakeEdge(aProfileCircle).Edge();
+    TopoDS_Wire aProfileWire = BRepBuilderAPI_MakeWire(aProfileEdge).Wire();
+    TopoDS_Face aProfileFace = BRepBuilderAPI_MakeFace(aProfileWire).Face();
+
+    TopoDS_Wire aHelixWire = BRepBuilderAPI_MakeWire(aHelixEdge).Wire();
+
+    BRepOffsetAPI_MakePipe aPipeMaker(aHelixWire, aProfileFace);
+
+    if (aPipeMaker.IsDone())
+    {
+        aTrsf.SetTranslation(gp_Vec(28.0, 120.0, 0.0));
+        BRepBuilderAPI_Transform aPipeTransform(aPipeMaker.Shape(), aTrsf);
+
+        Handle(AIS_Shape) anAisPipe = new AIS_Shape(aPipeTransform.Shape());
+        anAisPipe->SetColor(Quantity_NOC_DARKGOLDENROD);
+        myOccView->getContext()->Display(anAisPipe);
+    }
 }
 
 void occQt::makeToroidalHelix()
 {
+    Standard_Real aRadius = 1.0;
+    Standard_Real aSlope = 0.05;
+
+    // the pcurve is a 2d line in the parametric space.
+    gp_Lin2d aLine2d(gp_Pnt2d(0.0, 0.0), gp_Dir2d(aSlope, 1.0));
+
+    Handle(Geom2d_TrimmedCurve) aSegment = GCE2d_MakeSegment(aLine2d, 0.0, M_PI * 2.0).Value();
+
+    Handle(Geom_ToroidalSurface) aCylinder = new Geom_ToroidalSurface(gp::XOY(), aRadius * 5.0, aRadius);
+
+    TopoDS_Edge aHelixEdge = BRepBuilderAPI_MakeEdge(aSegment, aCylinder, 0.0, 2.0 * M_PI / aSlope).Edge();
+
+    gp_Trsf aTrsf;
+    aTrsf.SetTranslation(gp_Vec(45.0, 120.0, 0.0));
+    BRepBuilderAPI_Transform aTransform(aHelixEdge, aTrsf);
+
+    Handle(AIS_Shape) anAisHelixCurve = new AIS_Shape(aTransform.Shape());
+
+    myOccView->getContext()->Display(anAisHelixCurve);
+
+    // sweep a circle profile along the helix curve.
+    // there is no curve3d in the pcurve edge, so approx one.
+    BRepLib::BuildCurve3d(aHelixEdge);
+
+    gp_Ax2 anAxis;
+    anAxis.SetDirection(gp_Dir(0.0, 0.0, 1.0));
+    anAxis.SetLocation(gp_Pnt(aRadius * 6.0, 0.0, 0.0));
+
+    gp_Circ aProfileCircle(anAxis, 0.3);
+
+    TopoDS_Edge aProfileEdge = BRepBuilderAPI_MakeEdge(aProfileCircle).Edge();
+    TopoDS_Wire aProfileWire = BRepBuilderAPI_MakeWire(aProfileEdge).Wire();
+    TopoDS_Face aProfileFace = BRepBuilderAPI_MakeFace(aProfileWire).Face();
+
+    TopoDS_Wire aHelixWire = BRepBuilderAPI_MakeWire(aHelixEdge).Wire();
+
+    BRepOffsetAPI_MakePipe aPipeMaker(aHelixWire, aProfileFace);
+
+    if (aPipeMaker.IsDone())
+    {
+        aTrsf.SetTranslation(gp_Vec(60.0, 120.0, 0.0));
+        BRepBuilderAPI_Transform aPipeTransform(aPipeMaker.Shape(), aTrsf);
+
+        Handle(AIS_Shape) anAisPipe = new AIS_Shape(aPipeTransform.Shape());
+        anAisPipe->SetColor(Quantity_NOC_CORNSILK1);
+        myOccView->getContext()->Display(anAisPipe);
+    }
 }
