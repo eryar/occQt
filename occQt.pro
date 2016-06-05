@@ -83,13 +83,16 @@ linux-g++ {
 LIBS +=         \
     -lTKernel   \
     -lTKMath    \
+    -lTKG3d     \
     -lTKBRep    \
+    -lTKGeomBase\
+    -lTKGeomAlgo\
     -lTKTopAlgo \
     -lTKPrim    \
     -lTKBO      \
+    -lTKBool    \
     -lTKOffset  \
     -lTKService \
     -lTKV3d     \
     -lTKOpenGl  \
     -lTKFillet
-
