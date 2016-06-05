@@ -27,7 +27,8 @@ Note
    sphere, cylinder and torus creation;
 3. Demonstrate some modeling algorithms, such as prism, revol, loft and fillet, chamfer;
 4. Demonstrate boolean operations, such as cut, fuse and common;
-5. Enjoy!
+5. Demonstrate the helix algorithms;
+6. Enjoy!
 
 
 For more info, please visit the web site:
