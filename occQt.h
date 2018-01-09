@@ -1,18 +1,16 @@
 /*
-*    Copyright (c) 2013 to current year. All Rights Reserved.
+*    Copyright (c) 2018 Shing Liu All Rights Reserved.
 *
-*           File : occQt.cpp
-*         Author : eryar@163.com
-*           Date : 2014-11-29 10:18
-*        Version : OpenCASCADE6.8.0 & Qt5.4
+*           File : occQt.h
+*         Author : Shing Liu(eryar@163.com)
+*           Date : 2018-01-08 20:00
+*        Version : OpenCASCADE7.2.0 & Qt5.7.1
 *
 *    Description : OpenCASCADE in Qt.
-*
 */
 
 #ifndef OCCQT_H
 #define OCCQT_H
-
 
 #include "ui_occQt.h"
 
@@ -100,53 +98,53 @@ private:
 
 private:
     //! the exit action.
-    QAction* mExitAction;
+    QAction* myExitAction;
 
     //! the actions for the view: pan, reset, fitall.
-    QAction* mViewZoomAction;
-    QAction* mViewPanAction;
-    QAction* mViewRotateAction;
-    QAction* mViewResetAction;
-    QAction* mViewFitallAction;
+    QAction* myViewZoomAction;
+    QAction* myViewPanAction;
+    QAction* myViewRotateAction;
+    QAction* myViewResetAction;
+    QAction* myViewFitallAction;
 
     //! the actions to test the OpenCASCADE modeling algorithms.
-    QAction* mMakeBoxAction;
-    QAction* mMakeConeAction;
-    QAction* mMakeSphereAction;
-    QAction* mMakeCylinderAction;
-    QAction* mMakeTorusAction;
+    QAction* myMakeBoxAction;
+    QAction* myMakeConeAction;
+    QAction* myMakeSphereAction;
+    QAction* myMakeCylinderAction;
+    QAction* myMakeTorusAction;
 
     //! make a fillet box.
-    QAction* mFilletAction;
-    QAction* mChamferAction;
-    QAction* mExtrudeAction;
-    QAction* mRevolveAction;
-    QAction* mLoftAction;
+    QAction* myFilletAction;
+    QAction* myChamferAction;
+    QAction* myExtrudeAction;
+    QAction* myRevolveAction;
+    QAction* myLoftAction;
 
     //! boolean operations.
-    QAction* mCutAction;
-    QAction* mFuseAction;
-    QAction* mCommonAction;
+    QAction* myCutAction;
+    QAction* myFuseAction;
+    QAction* myCommonAction;
 
     //! helix shapes.
     QAction* myHelixAction;
 
     //! show the about info action.
-    QAction* mAboutAction;
+    QAction* myAboutAction;
 
     //! the menus of the application.
-    QMenu* mFileMenu;
-    QMenu* mViewMenu;
-    QMenu* mPrimitiveMenu;
-    QMenu* mModelingMenu;
-    QMenu* mHelpMenu;
+    QMenu* myFileMenu;
+    QMenu* myViewMenu;
+    QMenu* myPrimitiveMenu;
+    QMenu* myModelingMenu;
+    QMenu* myHelpMenu;
 
     //! the toolbars of the application.
-    QToolBar* mViewToolBar;
-    QToolBar* mNavigateToolBar;
-    QToolBar* mPrimitiveToolBar;
-    QToolBar* mModelingToolBar;
-    QToolBar* mHelpToolBar;
+    QToolBar* myViewToolBar;
+    QToolBar* myNavigateToolBar;
+    QToolBar* myPrimitiveToolBar;
+    QToolBar* myModelingToolBar;
+    QToolBar* myHelpToolBar;
 
     // wrapped the widget for occ.
     OccView* myOccView;

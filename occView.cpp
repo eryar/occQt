@@ -1,26 +1,15 @@
 /*
-*    Copyright (c) 2014 eryar All Rights Reserved.
+*    Copyright (c) 2018 Shing Liu All Rights Reserved.
 *
 *           File : OccView.cpp
-*         Author : eryar@163.com
-*           Date : 2014-07-15 21:00
-*        Version : OpenCASCADE6.8.0 & Qt5.4
+*         Author : Shing Liu(eryar@163.com)
+*           Date : 2018-01-08 21:00
+*        Version : OpenCASCADE7.2.0 & Qt5.7.1
 *
 *    Description : Qt widget for OpenCASCADE viewer.
 */
 
-// Moved the #include <OpenGl_GraphicsDriver.hxx> 
-// and added 9 #undef lines to get to build in Linux
 #include <OpenGl_GraphicDriver.hxx>
-#undef Bool
-#undef CursorShape
-#undef None
-#undef KeyPress
-#undef KeyRelease
-#undef FocusIn
-#undef FocusOut
-#undef FontChange
-#undef Expose
 
 #include "occView.h"
 
@@ -36,11 +25,20 @@
 #include <Aspect_DisplayConnection.hxx>
 
 #ifdef WNT
-  #include <WNT_Window.hxx>
+    #include <WNT_Window.hxx>
 #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
-  #include <Cocoa_Window.hxx>
+    #include <Cocoa_Window.hxx>
 #else
-  #include <Xw_Window.hxx>
+    #undef Bool
+    #undef CursorShape
+    #undef None
+    #undef KeyPress
+    #undef KeyRelease
+    #undef FocusIn
+    #undef FocusOut
+    #undef FontChange
+    #undef Expose
+    #include <Xw_Window.hxx>
 #endif
 
 // the key for multi selection :
@@ -98,7 +96,7 @@ void OccView::init()
     #endif
 
     // Create V3dViewer and V3d_View
-    myViewer = new V3d_Viewer(GetGraphicDriver(), (short* const)"viewer");
+    myViewer = new V3d_Viewer(GetGraphicDriver(), Standard_ExtString("viewer3d"));
 
     myView = myViewer->CreateView();
 
@@ -116,7 +114,7 @@ void OccView::init()
     myView->MustBeResized();
     myView->TriedronDisplay(Aspect_TOTP_LEFT_LOWER, Quantity_NOC_GOLD, 0.08, V3d_ZBUFFER);
 
-    myContext->SetDisplayMode(AIS_Shaded);
+    myContext->SetDisplayMode(AIS_Shaded, Standard_True);
 }
 
 const Handle(AIS_InteractiveContext)& OccView::getContext() const
@@ -373,14 +371,14 @@ void OccView::onMouseMove( const int theFlags, const QPoint thePoint )
 
 void OccView::dragEvent( const int x, const int y )
 {
-    myContext->Select( myXmin, myYmin, x, y, myView );
+    myContext->Select(myXmin, myYmin, x, y, myView, Standard_True);
 
     emit selectionChanged();
 }
 
 void OccView::multiDragEvent( const int x, const int y )
 {
-    myContext->ShiftSelect( myXmin, myYmin, x, y, myView );
+    myContext->ShiftSelect(myXmin, myYmin, x, y, myView, Standard_True);
 
     emit selectionChanged();
 
@@ -391,7 +389,7 @@ void OccView::inputEvent( const int x, const int y )
     Q_UNUSED(x);
     Q_UNUSED(y);
 
-    myContext->Select();
+    myContext->Select(Standard_True);
 
     emit selectionChanged();
 }
@@ -401,19 +399,19 @@ void OccView::multiInputEvent( const int x, const int y )
     Q_UNUSED(x);
     Q_UNUSED(y);
 
-    myContext->ShiftSelect();
+    myContext->ShiftSelect(Standard_True);
 
     emit selectionChanged();
 }
 
 void OccView::moveEvent( const int x, const int y )
 {
-    myContext->MoveTo(x, y, myView);
+    myContext->MoveTo(x, y, myView, Standard_True);
 }
 
 void OccView::multiMoveEvent( const int x, const int y )
 {
-    myContext->MoveTo(x, y, myView);
+    myContext->MoveTo(x, y, myView, Standard_True);
 }
 
 void OccView::drawRubberBand( const int minX, const int minY, const int maxX, const int maxY )

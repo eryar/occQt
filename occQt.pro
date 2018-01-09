@@ -27,6 +27,8 @@ FORMS    += \
 RESOURCES += \
     occqt.qrc
 
+CASROOT = D:/OpenCASCADE7.2.0/opencascade-7.2.0
+    
 win32 {
     DEFINES +=  \
         WNT
