@@ -38,6 +38,15 @@ protected:
     //! create the toolbar.
     void createToolBars(void);
 
+    //! make cylindrical helix.
+    void makeCylindricalHelix(void);
+
+    //! make conical helix.
+    void makeConicalHelix(void);
+
+    //! make toroidal helix.
+    void makeToroidalHelix(void);
+
 private slots:
     //! show about box.
     void about(void);
@@ -86,65 +95,6 @@ private slots:
 
 private:
     Ui::occQtClass ui;
-
-    //! make cylindrical helix.
-    void makeCylindricalHelix(void);
-
-    //! make conical helix.
-    void makeConicalHelix(void);
-
-    //! make toroidal helix.
-    void makeToroidalHelix(void);
-
-private:
-    //! the exit action.
-    QAction* myExitAction;
-
-    //! the actions for the view: pan, reset, fitall.
-    QAction* myViewZoomAction;
-    QAction* myViewPanAction;
-    QAction* myViewRotateAction;
-    QAction* myViewResetAction;
-    QAction* myViewFitallAction;
-
-    //! the actions to test the OpenCASCADE modeling algorithms.
-    QAction* myMakeBoxAction;
-    QAction* myMakeConeAction;
-    QAction* myMakeSphereAction;
-    QAction* myMakeCylinderAction;
-    QAction* myMakeTorusAction;
-
-    //! make a fillet box.
-    QAction* myFilletAction;
-    QAction* myChamferAction;
-    QAction* myExtrudeAction;
-    QAction* myRevolveAction;
-    QAction* myLoftAction;
-
-    //! boolean operations.
-    QAction* myCutAction;
-    QAction* myFuseAction;
-    QAction* myCommonAction;
-
-    //! helix shapes.
-    QAction* myHelixAction;
-
-    //! show the about info action.
-    QAction* myAboutAction;
-
-    //! the menus of the application.
-    QMenu* myFileMenu;
-    QMenu* myViewMenu;
-    QMenu* myPrimitiveMenu;
-    QMenu* myModelingMenu;
-    QMenu* myHelpMenu;
-
-    //! the toolbars of the application.
-    QToolBar* myViewToolBar;
-    QToolBar* myNavigateToolBar;
-    QToolBar* myPrimitiveToolBar;
-    QToolBar* myModelingToolBar;
-    QToolBar* myHelpToolBar;
 
     // wrapped the widget for occ.
     OccView* myOccView;

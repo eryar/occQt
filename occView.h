@@ -55,14 +55,14 @@ public slots:
 
 protected:
     // Paint events.
-    virtual void paintEvent(QPaintEvent* e);
-    virtual void resizeEvent(QResizeEvent* e);
+    virtual void paintEvent(QPaintEvent* theEvent);
+    virtual void resizeEvent(QResizeEvent* theEvent);
 
     // Mouse events.
-    virtual void mousePressEvent(QMouseEvent* e);
-    virtual void mouseReleaseEvent(QMouseEvent* e);
-    virtual void mouseMoveEvent(QMouseEvent * e);
-    virtual void wheelEvent(QWheelEvent * e);
+    virtual void mousePressEvent(QMouseEvent* theEvent);
+    virtual void mouseReleaseEvent(QMouseEvent* theEvent);
+    virtual void mouseMoveEvent(QMouseEvent * theEvent);
+    virtual void wheelEvent(QWheelEvent * theEvent);
 
     // Button events.
     virtual void onLButtonDown(const int theFlags, const QPoint thePoint);

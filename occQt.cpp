@@ -84,183 +84,78 @@ occQt::~occQt()
 
 void occQt::createActions( void )
 {
-    myExitAction = new QAction(tr("Exit"), this);
-    myExitAction->setShortcut(tr("Ctrl+Q"));
-    myExitAction->setIcon(QIcon(":/Resources/close.png"));
-    myExitAction->setStatusTip(tr("Exit the application"));
-    connect(myExitAction, SIGNAL(triggered()), this, SLOT(close()));
+    // File
+    connect(ui.actionExit, SIGNAL(triggered()), this, SLOT(close()));
 
-    myViewZoomAction = new QAction(tr("Zoom"), this);
-    myViewZoomAction->setIcon(QIcon(":/Resources/Zoom.png"));
-    myViewZoomAction->setStatusTip(tr("Zoom the view"));
-    connect(myViewZoomAction, SIGNAL(triggered()), myOccView, SLOT(zoom()));
+    // View
+    connect(ui.actionZoom, SIGNAL(triggered()), myOccView, SLOT(zoom()));
+    connect(ui.actionPan, SIGNAL(triggered()), myOccView, SLOT(pan()));
+    connect(ui.actionRotate, SIGNAL(triggered()), myOccView, SLOT(rotate()));
 
-    myViewPanAction = new QAction(tr("Pan"), this);
-    myViewPanAction->setIcon(QIcon(":/Resources/Pan.png"));
-    myViewPanAction->setStatusTip(tr("Pan the view"));
-    connect(myViewPanAction, SIGNAL(triggered()), myOccView, SLOT(pan()));
+    connect(ui.actionReset, SIGNAL(triggered()), myOccView, SLOT(reset()));
+    connect(ui.actionFitAll, SIGNAL(triggered()), myOccView, SLOT(fitAll()));
 
-    myViewRotateAction = new QAction(tr("Rotate"), this);
-    myViewRotateAction->setIcon(QIcon(":/Resources/Rotate.png"));
-    myViewRotateAction->setStatusTip(tr("Rotate the view"));
-    connect(myViewRotateAction, SIGNAL(triggered()), myOccView, SLOT(rotate()));
+    // Primitive
+    connect(ui.actionBox, SIGNAL(triggered()), this, SLOT(makeBox()));
+    connect(ui.actionCone, SIGNAL(triggered()), this, SLOT(makeCone()));
+    connect(ui.actionSphere, SIGNAL(triggered()), this, SLOT(makeSphere()));
+    connect(ui.actionCylinder, SIGNAL(triggered()), this, SLOT(makeCylinder()));
+    connect(ui.actionTorus, SIGNAL(triggered()), this, SLOT(makeTorus()));
 
-    myViewResetAction = new QAction(tr("Reset"), this);
-    myViewResetAction->setIcon(QIcon(":/Resources/Home.png"));
-    myViewResetAction->setStatusTip(tr("Reset the view"));
-    connect(myViewResetAction, SIGNAL(triggered()), myOccView, SLOT(reset()));
+    // Modeling
+    connect(ui.actionFillet, SIGNAL(triggered()), this, SLOT(makeFillet()));
+    connect(ui.actionChamfer, SIGNAL(triggered()), this, SLOT(makeChamfer()));
+    connect(ui.actionExtrude, SIGNAL(triggered()), this, SLOT(makeExtrude()));
+    connect(ui.actionRevolve, SIGNAL(triggered()), this, SLOT(makeRevol()));
+    connect(ui.actionLoft, SIGNAL(triggered()), this, SLOT(makeLoft()));
 
-    myViewFitallAction = new QAction(tr("Fit All"), this);
-    myViewFitallAction->setIcon(QIcon(":/Resources/FitAll.png"));
-    myViewFitallAction->setStatusTip(tr("Fit all "));
-    connect(myViewFitallAction, SIGNAL(triggered()), myOccView, SLOT(fitAll()));
+    connect(ui.actionCut, SIGNAL(triggered()), this, SLOT(testCut()));
+    connect(ui.actionFuse, SIGNAL(triggered()), this, SLOT(testFuse()));
+    connect(ui.actionCommon, SIGNAL(triggered()), this, SLOT(testCommon()));
 
-    myMakeBoxAction = new QAction(tr("Box"), this);
-    myMakeBoxAction->setIcon(QIcon(":/Resources/box.png"));
-    myMakeBoxAction->setStatusTip(tr("Make a box"));
-    connect(myMakeBoxAction, SIGNAL(triggered()), this, SLOT(makeBox()));
+    connect(ui.actionHelix, SIGNAL(triggered()), this, SLOT(testHelix()));
 
-    myMakeConeAction = new QAction(tr("Cone"), this);
-    myMakeConeAction->setIcon(QIcon(":/Resources/cone.png"));
-    myMakeConeAction->setStatusTip(tr("Make a cone"));
-    connect(myMakeConeAction, SIGNAL(triggered()), this, SLOT(makeCone()));
-
-    myMakeSphereAction = new QAction(tr("Sphere"), this);
-    myMakeSphereAction->setStatusTip(tr("Make a sphere"));
-    myMakeSphereAction->setIcon(QIcon(":/Resources/sphere.png"));
-    connect(myMakeSphereAction, SIGNAL(triggered()), this, SLOT(makeSphere()));
-
-    myMakeCylinderAction = new QAction(tr("Cylinder"), this);
-    myMakeCylinderAction->setStatusTip(tr("Make a cylinder"));
-    myMakeCylinderAction->setIcon(QIcon(":/Resources/cylinder.png"));
-    connect(myMakeCylinderAction, SIGNAL(triggered()), this, SLOT(makeCylinder()));
-
-    myMakeTorusAction = new QAction(tr("Torus"), this);
-    myMakeTorusAction->setStatusTip(tr("Make a torus"));
-    myMakeTorusAction->setIcon(QIcon(":/Resources/torus.png"));
-    connect(myMakeTorusAction, SIGNAL(triggered()), this, SLOT(makeTorus()));
-
-    myFilletAction = new QAction(tr("Fillet"), this);
-    myFilletAction->setIcon(QIcon(":/Resources/fillet.png"));
-    myFilletAction->setStatusTip(tr("Test Fillet algorithm"));
-    connect(myFilletAction, SIGNAL(triggered()), this, SLOT(makeFillet()));
-
-    myChamferAction = new QAction(tr("Chamfer"), this);
-    myChamferAction->setIcon(QIcon(":/Resources/chamfer.png"));
-    myChamferAction->setStatusTip(tr("Test chamfer algorithm"));
-    connect(myChamferAction, SIGNAL(triggered()), this, SLOT(makeChamfer()));
-
-    myExtrudeAction = new QAction(tr("Extrude"), this);
-    myExtrudeAction->setIcon(QIcon(":/Resources/extrude.png"));
-    myExtrudeAction->setStatusTip(tr("Test extrude algorithm"));
-    connect(myExtrudeAction, SIGNAL(triggered()), this, SLOT(makeExtrude()));
-
-    myRevolveAction = new QAction(tr("Revolve"), this);
-    myRevolveAction->setIcon(QIcon(":/Resources/revolve.png"));
-    myRevolveAction->setStatusTip(tr("Test revol algorithm"));
-    connect(myRevolveAction, SIGNAL(triggered()), this, SLOT(makeRevol()));
-
-    myLoftAction = new QAction(tr("Loft"), this);
-    myLoftAction->setIcon(QIcon(":/Resources/loft.png"));
-    myLoftAction->setStatusTip(tr("Test loft algorithm"));
-    connect(myLoftAction, SIGNAL(triggered()), this, SLOT(makeLoft()));
-
-    myCutAction = new QAction(tr("Cut"), this);
-    myCutAction->setIcon(QIcon(":/Resources/cut.png"));
-    myCutAction->setStatusTip(tr("Boolean operation cut"));
-    connect(myCutAction, SIGNAL(triggered()), this, SLOT(testCut()));
-
-    myFuseAction = new QAction(tr("Fuse"), this);
-    myFuseAction->setIcon(QIcon(":/Resources/fuse.png"));
-    myFuseAction->setStatusTip(tr("Boolean operation fuse"));
-    connect(myFuseAction, SIGNAL(triggered()), this, SLOT(testFuse()));
-
-    myCommonAction = new QAction(tr("Common"), this);
-    myCommonAction->setIcon(QIcon(":/Resources/common.png"));
-    myCommonAction->setStatusTip(tr("Boolean operation common"));
-    connect(myCommonAction, SIGNAL(triggered()), this, SLOT(testCommon()));
-
-    myHelixAction = new QAction(tr("Helix"), this);
-    myHelixAction->setIcon(QIcon(":/Resources/helix.png"));
-    myHelixAction->setStatusTip(tr("Make helix shapes"));
-    connect(myHelixAction, SIGNAL(triggered()), this, SLOT(testHelix()));
-
-    myAboutAction = new QAction(tr("About"), this);
-    myAboutAction->setStatusTip(tr("About the application"));
-    myAboutAction->setIcon(QIcon(":/Resources/lamp.png"));
-    connect(myAboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    // Help
+    connect(ui.actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
 void occQt::createMenus( void )
 {
-    myFileMenu = menuBar()->addMenu(tr("&File"));
-    myFileMenu->addAction(myExitAction);
-
-    myViewMenu = menuBar()->addMenu(tr("&View"));
-    myViewMenu->addAction(myViewZoomAction);
-    myViewMenu->addAction(myViewPanAction);
-    myViewMenu->addAction(myViewRotateAction);
-    myViewMenu->addSeparator();
-    myViewMenu->addAction(myViewResetAction);
-    myViewMenu->addAction(myViewFitallAction);
-
-    myPrimitiveMenu = menuBar()->addMenu(tr("&Primitive"));
-    myPrimitiveMenu->addAction(myMakeBoxAction);
-    myPrimitiveMenu->addAction(myMakeConeAction);
-    myPrimitiveMenu->addAction(myMakeSphereAction);
-    myPrimitiveMenu->addAction(myMakeCylinderAction);
-    myPrimitiveMenu->addAction(myMakeTorusAction);
-
-    myModelingMenu = menuBar()->addMenu(tr("&Modeling"));
-    myModelingMenu->addAction(myFilletAction);
-    myModelingMenu->addAction(myChamferAction);
-    myModelingMenu->addAction(myExtrudeAction);
-    myModelingMenu->addAction(myRevolveAction);
-    myModelingMenu->addAction(myLoftAction);
-    myModelingMenu->addSeparator();
-    myModelingMenu->addAction(myCutAction);
-    myModelingMenu->addAction(myFuseAction);
-    myModelingMenu->addAction(myCommonAction);
-    myModelingMenu->addSeparator();
-    myModelingMenu->addAction(myHelixAction);
-
-    myHelpMenu = menuBar()->addMenu(tr("&Help"));
-    myHelpMenu->addAction(myAboutAction);
 }
 
 void occQt::createToolBars( void )
 {
-    myNavigateToolBar = addToolBar(tr("&Navigate"));
-    myNavigateToolBar->addAction(myViewZoomAction);
-    myNavigateToolBar->addAction(myViewPanAction);
-    myNavigateToolBar->addAction(myViewRotateAction);
+    QToolBar* aToolBar = addToolBar(tr("&Navigate"));
+    aToolBar->addAction(ui.actionZoom);
+    aToolBar->addAction(ui.actionPan);
+    aToolBar->addAction(ui.actionRotate);
 
-    myViewToolBar = addToolBar(tr("&View"));
-    myViewToolBar->addAction(myViewResetAction);
-    myViewToolBar->addAction(myViewFitallAction);
+    aToolBar = addToolBar(tr("&View"));
+    aToolBar->addAction(ui.actionReset);
+    aToolBar->addAction(ui.actionFitAll);
 
-    myPrimitiveToolBar = addToolBar(tr("&Primitive"));
-    myPrimitiveToolBar->addAction(myMakeBoxAction);
-    myPrimitiveToolBar->addAction(myMakeConeAction);
-    myPrimitiveToolBar->addAction(myMakeSphereAction);
-    myPrimitiveToolBar->addAction(myMakeCylinderAction);
-    myPrimitiveToolBar->addAction(myMakeTorusAction);
+    aToolBar = addToolBar(tr("&Primitive"));
+    aToolBar->addAction(ui.actionBox);
+    aToolBar->addAction(ui.actionCone);
+    aToolBar->addAction(ui.actionSphere);
+    aToolBar->addAction(ui.actionCylinder);
+    aToolBar->addAction(ui.actionTorus);
 
-    myModelingToolBar = addToolBar(tr("&Modeling"));
-    myModelingToolBar->addAction(myFilletAction);
-    myModelingToolBar->addAction(myChamferAction);
-    myModelingToolBar->addAction(myExtrudeAction);
-    myModelingToolBar->addAction(myRevolveAction);
-    myModelingToolBar->addAction(myLoftAction);
-    myModelingToolBar->addSeparator();
-    myModelingToolBar->addAction(myCutAction);
-    myModelingToolBar->addAction(myFuseAction);
-    myModelingToolBar->addAction(myCommonAction);
-    myModelingToolBar->addSeparator();
-    myModelingToolBar->addAction(myHelixAction);
+    aToolBar = addToolBar(tr("&Modeling"));
+    aToolBar->addAction(ui.actionFillet);
+    aToolBar->addAction(ui.actionChamfer);
+    aToolBar->addAction(ui.actionExtrude);
+    aToolBar->addAction(ui.actionRevolve);
+    aToolBar->addAction(ui.actionLoft);
+    aToolBar->addSeparator();
+    aToolBar->addAction(ui.actionCut);
+    aToolBar->addAction(ui.actionFuse);
+    aToolBar->addAction(ui.actionCommon);
+    aToolBar->addSeparator();
+    aToolBar->addAction(ui.actionHelix);
 
-    myHelpToolBar = addToolBar(tr("Help"));
-    myHelpToolBar->addAction(myAboutAction);
+    aToolBar = addToolBar(tr("Help"));
+    aToolBar->addAction(ui.actionAbout);
 }
 
 void occQt::about()

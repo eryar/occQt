@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>680</width>
-    <height>500</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>occQt</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="occqt.qrc">
+    <normaloff>:/Resources/lamp.png</normaloff>:/Resources/lamp.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -19,12 +23,266 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>680</width>
+     <width>800</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionZoom"/>
+    <addaction name="actionPan"/>
+    <addaction name="actionRotate"/>
+    <addaction name="separator"/>
+    <addaction name="actionReset"/>
+    <addaction name="actionFitAll"/>
+   </widget>
+   <widget class="QMenu" name="menuPrimitive">
+    <property name="title">
+     <string>Primitive</string>
+    </property>
+    <addaction name="actionBox"/>
+    <addaction name="actionCone"/>
+    <addaction name="actionSphere"/>
+    <addaction name="actionCylinder"/>
+    <addaction name="actionTorus"/>
+   </widget>
+   <widget class="QMenu" name="menuModeling">
+    <property name="title">
+     <string>Modeling</string>
+    </property>
+    <addaction name="actionFillet"/>
+    <addaction name="actionChamfer"/>
+    <addaction name="actionExtrude"/>
+    <addaction name="actionRevolve"/>
+    <addaction name="actionLoft"/>
+    <addaction name="separator"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionFuse"/>
+    <addaction name="actionCommon"/>
+    <addaction name="separator"/>
+    <addaction name="actionHelix"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuPrimitive"/>
+   <addaction name="menuModeling"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionZoom">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/Zoom.png</normaloff>:/Resources/Zoom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom</string>
+   </property>
+  </action>
+  <action name="actionPan">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/Pan.png</normaloff>:/Resources/Pan.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pan</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/Rotate.png</normaloff>:/Resources/Rotate.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/Home.png</normaloff>:/Resources/Home.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </action>
+  <action name="actionFitAll">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/FitAll.png</normaloff>:/Resources/FitAll.png</iconset>
+   </property>
+   <property name="text">
+    <string>FitAll</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/lamp.png</normaloff>:/Resources/lamp.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionBox">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/box.png</normaloff>:/Resources/box.png</iconset>
+   </property>
+   <property name="text">
+    <string>Box</string>
+   </property>
+  </action>
+  <action name="actionCone">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/cone.png</normaloff>:/Resources/cone.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cone</string>
+   </property>
+  </action>
+  <action name="actionSphere">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/sphere.png</normaloff>:/Resources/sphere.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sphere</string>
+   </property>
+  </action>
+  <action name="actionCylinder">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/cylinder.png</normaloff>:/Resources/cylinder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cylinder</string>
+   </property>
+  </action>
+  <action name="actionTorus">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/torus.png</normaloff>:/Resources/torus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Torus</string>
+   </property>
+  </action>
+  <action name="actionFillet">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/fillet.png</normaloff>:/Resources/fillet.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fillet</string>
+   </property>
+  </action>
+  <action name="actionChamfer">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/chamfer.png</normaloff>:/Resources/chamfer.png</iconset>
+   </property>
+   <property name="text">
+    <string>Chamfer</string>
+   </property>
+  </action>
+  <action name="actionExtrude">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/extrude.png</normaloff>:/Resources/extrude.png</iconset>
+   </property>
+   <property name="text">
+    <string>Extrude</string>
+   </property>
+  </action>
+  <action name="actionRevolve">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/revolve.png</normaloff>:/Resources/revolve.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rovelve</string>
+   </property>
+  </action>
+  <action name="actionLoft">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/loft.png</normaloff>:/Resources/loft.png</iconset>
+   </property>
+   <property name="text">
+    <string>Loft</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/cut.png</normaloff>:/Resources/cut.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cut</string>
+   </property>
+  </action>
+  <action name="actionFuse">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/fuse.png</normaloff>:/Resources/fuse.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fuse</string>
+   </property>
+  </action>
+  <action name="actionCommon">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/common.png</normaloff>:/Resources/common.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common</string>
+   </property>
+  </action>
+  <action name="actionHelix">
+   <property name="icon">
+    <iconset resource="occqt.qrc">
+     <normaloff>:/Resources/helix.png</normaloff>:/Resources/helix.png</iconset>
+   </property>
+   <property name="text">
+    <string>Helix</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
