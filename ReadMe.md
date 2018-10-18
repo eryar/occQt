@@ -31,7 +31,8 @@ sudo apt-get install oce-draw liboce-modeling-dev liboce-ocaf-dev
 
 Building occQt on Windows
 =========================
-First you need the qt-vs-addin, then open the occQt.pro from the Qt menu in the Visual Studio.
+First you need the qt-vs-addin, you can download it from here: http://download.qt.io/archive/vsaddin/
+then open the occQt.pro from the Qt menu in the Visual Studio.
 
 Note
 ====
