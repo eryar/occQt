@@ -9,14 +9,14 @@
 *    Description : Qt widget for OpenCASCADE viewer.
 */
 
-#include <OpenGl_GraphicDriver.hxx>
-
-#include "occView.h"
-
 #include <QMenu>
 #include <QMouseEvent>
 #include <QRubberBand>
 #include <QStyleFactory>
+
+#include <OpenGl_GraphicDriver.hxx>
+
+#include "occView.h"
 
 #include <V3d_View.hxx>
 
@@ -52,7 +52,7 @@ OccView::OccView(QWidget* parent )
     myXmin(0),
     myYmin(0),
     myXmax(0),
-    myYmax(0),    
+    myYmax(0),
     myCurrentMode(CurAction3d_DynamicRotation),
     myDegenerateModeIsOn(Standard_True),
     myRectBand(NULL)

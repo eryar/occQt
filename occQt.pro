@@ -28,7 +28,7 @@ RESOURCES += \
     occqt.qrc
 
 CASROOT = D:/OpenCASCADE7.2.0/opencascade-7.2.0
-    
+
 win32 {
     DEFINES +=  \
         WNT
@@ -76,10 +76,10 @@ win32 {
 
 linux-g++ {
     INCLUDEPATH +=  \
-        $$(CASROOT)/include/opencascade
+        /usr/local/include/opencascade
 
-    LIBS +=         \
-        -L$$(CASROOT)/lib
+    LIBS += \
+        -L/usr/local/lib/
 }
 
 LIBS +=         \
