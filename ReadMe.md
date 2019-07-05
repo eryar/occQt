@@ -26,6 +26,11 @@ Building occQt on Linux
 First you need the qt and Mesa/OpenGL development files:
 sudo apt-get install qt5-default qt5-qmake qtbase5-dev-tools qtcreator  libglu1-mesa-dev mesa-common-dev
 
+For Open CASCADE Official Edition
+---------------------------------
+
+For Open CASCADE Community Edition
+----------------------------------
 Then from the FreeCad ppa (make sure you have http://ppa.launchpad.net/freecad-maintainers/freecad-daily/ubuntu in your apt sources list):
 sudo apt-get install oce-draw liboce-modeling-dev liboce-ocaf-dev 
 
