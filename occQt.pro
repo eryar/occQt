@@ -27,7 +27,7 @@ FORMS    += \
 RESOURCES += \
     occqt.qrc
 
-CASROOT = D:/OpenCASCADE7.2.0/opencascade-7.2.0
+CASROOT = C:\Users\ascre_p1ijxgd\Documents\ProgC\OpenCASCADE-7.3.0-vc14-64\opencascade-7.3.0\
 
 win32 {
     DEFINES +=  \
@@ -51,11 +51,16 @@ win32 {
         compiler=vc14
     }
 
+    win32-msvc {
+        compiler=vc14
+    }
+
+
     # Determine 32 / 64 bit and debug / release build
     !contains(QMAKE_TARGET.arch, x86_64) {
         CONFIG(debug, debug|release) {
             message("Debug 32 build")
-            LIBS += -L$$(CASROOT)/win32/$$compiler/libd
+            LIBS += -L$$(CASROOT)/win32/$$compiler/lib
         }
         else {
             message("Release 32 build")
@@ -64,8 +69,9 @@ win32 {
     }
     else {
         CONFIG(debug, debug|release) {
-            message("Debug 64 build")
-            LIBS += -L$$(CASROOT)/win64/$$compiler/libd
+           message("Debug 64 build")
+           LIBS += -L$$(CASROOT)/win64/$$compiler/lib
+           #message("$$(CASROOT)/win64/$$compiler/lib")
         }
         else {
             message("Release 64 build")
