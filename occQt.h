@@ -25,7 +25,7 @@ class occQt : public QMainWindow
 
 public:
     //! constructor/destructor.
-    occQt(QWidget *parent = 0);
+    occQt(QWidget *parent = nullptr);
     ~occQt();
 
 protected:
