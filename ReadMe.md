@@ -39,7 +39,16 @@ sudo apt-get install oce-draw liboce-modeling-dev liboce-ocaf-dev
 
 Building occQt on Windows
 =========================
+
+For QtCreator
+-------------------------------
+Open the occQt.pro from the Qt menu and set 
+the  variable CASROOT  Opencascade installation path
+
+For VisualStudio 2017
+-------------------------------
 First you need the qt-vs-addin, you can download it from here: http://download.qt.io/archive/vsaddin/
+open th occQt.pro and set the  variable CASROOT  Opencascade installation path
 then open the occQt.pro from the Qt menu in the Visual Studio.
 
 Note
@@ -54,6 +63,9 @@ Note
 5. Demonstrate the helix algorithms;
 6. Enjoy!
 
+Update:  
+Alessandro Screm
+https://github.com/AlessandroScrem/occQt
 
 For more info, please visit the web site:
 http://www.cppblog.com/eryar/

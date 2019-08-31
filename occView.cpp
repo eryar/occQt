@@ -55,7 +55,7 @@ OccView::OccView(QWidget* parent )
     myYmax(0),
     myCurrentMode(CurAction3d_DynamicRotation),
     myDegenerateModeIsOn(Standard_True),
-    myRectBand(NULL)
+    myRectBand(nullptr)
 {
     // No Background
     setBackgroundRole( QPalette::NoRole );
@@ -78,11 +78,11 @@ void OccView::init()
     }
 
     // Get window handle. This returns something suitable for all platforms.
-    WId window_handle = (WId) winId();
+    WId window_handle = static_cast<WId> ( winId());
 
     // Create appropriate window for platform
     #ifdef WNT
-        Handle(WNT_Window) wind = new WNT_Window((Aspect_Handle) window_handle);
+        Handle(WNT_Window) wind = new WNT_Window(reinterpret_cast <Aspect_Handle> (window_handle));
     #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
         Handle(Cocoa_Window) wind = new Cocoa_Window((NSView *) window_handle);
     #else
@@ -90,7 +90,7 @@ void OccView::init()
     #endif
 
     // Create V3dViewer and V3d_View
-    myViewer = new V3d_Viewer(GetGraphicDriver(), Standard_ExtString("viewer3d"));
+    myViewer = new V3d_Viewer(GetGraphicDriver()/*, Standard_ExtString("viewer3d")*/);
 
     myView = myViewer->CreateView();
 
