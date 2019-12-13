@@ -45,7 +45,7 @@ For QtCreator
 Open the occQt.pro from the Qt menu and set 
 the  variable CASROOT  Opencascade installation path
 
-For VisualStudio 2017
+For VisualStudio
 -------------------------------
 First you need the qt-vs-addin, you can download it from here: http://download.qt.io/archive/vsaddin/
 open th occQt.pro and set the  variable CASROOT  Opencascade installation path
@@ -63,12 +63,27 @@ Note
 5. Demonstrate the helix algorithms;
 6. Enjoy!
 
-Update:  
+Contributors
+============
 Alessandro Screm
 https://github.com/AlessandroScrem/occQt
 
+Sönke J. Peters
+https://github.com/speters
+
+Anton Fosselius
+https://github.com/maidenone
+
+Keith Preston
+https://github.com/shrdluk
+
+Paul Hentschel
+https://github.com/hpmachining
+
+
+Feedback
+--------
 For more info, please visit the web site:
 http://www.cppblog.com/eryar/
 
-Feedback:
 Shing Liu: eryar@163.com
