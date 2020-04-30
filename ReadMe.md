@@ -51,6 +51,14 @@ First you need the qt-vs-addin, you can download it from here: http://download.q
 open th occQt.pro and set the  variable CASROOT  Opencascade installation path
 then open the occQt.pro from the Qt menu in the Visual Studio.
 
+中国用户
+--------
+对于中国用户，推荐清华大学开源软件镜像站去下载开源程序相关资源，速度快：
+https://mirrors.tuna.tsinghua.edu.cn/
+
+关于Qt的资源镜像地址为：
+https://mirrors.tuna.tsinghua.edu.cn/qt/
+
 Note
 ====
 1. Demonstrate the operations for the OpenCASCADE viewer, such as pan, zoom and rotate;
