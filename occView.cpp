@@ -9,14 +9,14 @@
 *    Description : Qt widget for OpenCASCADE viewer.
 */
 
+#include <OpenGl_GraphicDriver.hxx>
+
+#include "occView.h"
+
 #include <QMenu>
 #include <QMouseEvent>
 #include <QRubberBand>
 #include <QStyleFactory>
-
-#include <OpenGl_GraphicDriver.hxx>
-
-#include "occView.h"
 
 #include <V3d_View.hxx>
 
@@ -48,21 +48,27 @@ static Handle(Graphic3d_GraphicDriver)& GetGraphicDriver()
 }
 
 OccView::OccView(QWidget* parent )
-    : QGLWidget(parent),
+    : QWidget(parent),
     myXmin(0),
     myYmin(0),
     myXmax(0),
-    myYmax(0),
+    myYmax(0),    
     myCurrentMode(CurAction3d_DynamicRotation),
     myDegenerateModeIsOn(Standard_True),
-    myRectBand(nullptr)
+    myRectBand(NULL)
 {
     // No Background
     setBackgroundRole( QPalette::NoRole );
 
+    // set focus policy to threat QContextMenuEvent from keyboard  
+    setFocusPolicy(Qt::StrongFocus);
+    setAttribute(Qt::WA_PaintOnScreen);
+    setAttribute(Qt::WA_NoSystemBackground);
+
     // Enable the mouse tracking, by default the mouse tracking is disabled.
     setMouseTracking( true );
 
+    init();
 }
 
 void OccView::init()
@@ -78,11 +84,11 @@ void OccView::init()
     }
 
     // Get window handle. This returns something suitable for all platforms.
-    WId window_handle = static_cast<WId> ( winId());
+    WId window_handle = (WId) winId();
 
     // Create appropriate window for platform
     #ifdef WNT
-        Handle(WNT_Window) wind = new WNT_Window(reinterpret_cast <Aspect_Handle> (window_handle));
+        Handle(WNT_Window) wind = new WNT_Window((Aspect_Handle) window_handle);
     #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
         Handle(Cocoa_Window) wind = new Cocoa_Window((NSView *) window_handle);
     #else
@@ -90,7 +96,7 @@ void OccView::init()
     #endif
 
     // Create V3dViewer and V3d_View
-    myViewer = new V3d_Viewer(GetGraphicDriver()/*, Standard_ExtString("viewer3d")*/);
+    myViewer = new V3d_Viewer(GetGraphicDriver(), Standard_ExtString("viewer3d"));
 
     myView = myViewer->CreateView();
 
@@ -116,13 +122,16 @@ const Handle(AIS_InteractiveContext)& OccView::getContext() const
     return myContext;
 }
 
+/*!
+Get paint engine for the OpenGL viewer. [ virtual public ]
+*/
+QPaintEngine* OccView::paintEngine() const
+{
+    return 0;
+}
+
 void OccView::paintEvent( QPaintEvent* /*theEvent*/ )
 {
-    if (myContext.IsNull())
-    {
-        init();
-    }
-
     myView->Redraw();
 }
 

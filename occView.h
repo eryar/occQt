@@ -19,8 +19,8 @@
 class QMenu;
 class QRubberBand;
 
-//! adapted a QGLWidget for OpenCASCADE viewer.
-class OccView : public QGLWidget
+//! Adapted a QWidget for OpenCASCADE viewer.
+class OccView : public QWidget
 {
     Q_OBJECT
 
@@ -54,6 +54,8 @@ public slots:
     void rotate(void);
 
 protected:
+    virtual QPaintEngine* paintEngine() const;
+
     // Paint events.
     virtual void paintEvent(QPaintEvent* theEvent);
     virtual void resizeEvent(QResizeEvent* theEvent);
