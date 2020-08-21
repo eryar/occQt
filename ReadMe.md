@@ -97,21 +97,3 @@ http://www.cppblog.com/eryar/
 Shing Liu: eryar@163.com
 
 
-# todo
-
-try to solve occview.cpp undef problem.
-
-```
-#else
-    #undef Bool
-    #undef CursorShape
-    #undef None
-    #undef KeyPress
-    #undef KeyRelease
-    #undef FocusIn
-    #undef FocusOut
-    #undef FontChange
-    #undef Expose
-    #include <Xw_Window.hxx>
-#endif
-```
