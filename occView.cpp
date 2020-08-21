@@ -1,11 +1,9 @@
 /*
 *    Copyright (c) 2018 Shing Liu All Rights Reserved.
-*
 *           File : OccView.cpp
 *         Author : Shing Liu(eryar@163.com)
 *           Date : 2018-01-08 21:00
-*        Version : OpenCASCADE7.2.0 & Qt5.7.1
-*
+*        Version : OpenCASCADE7.4.0 & Qt5.9.5
 *    Description : Qt widget for OpenCASCADE viewer.
 */
 
@@ -15,11 +13,8 @@
 #include <QStyleFactory>
 
 #include <OpenGl_GraphicDriver.hxx>
-
 #include "occView.h"
-
 #include <V3d_View.hxx>
-
 #include <Aspect_Handle.hxx>
 #include <Aspect_DisplayConnection.hxx>
 
@@ -28,15 +23,6 @@
 #elif defined(__APPLE__) && !defined(MACOSX_USE_GLX)
     #include <Cocoa_Window.hxx>
 #else
-    #undef Bool
-    #undef CursorShape
-    #undef None
-    #undef KeyPress
-    #undef KeyRelease
-    #undef FocusIn
-    #undef FocusOut
-    #undef FontChange
-    #undef Expose
     #include <Xw_Window.hxx>
 #endif
 
@@ -48,7 +34,7 @@ static Handle(Graphic3d_GraphicDriver)& GetGraphicDriver()
 }
 
 OccView::OccView(QWidget* parent )
-    : QWidget(parent),
+    : QGLWidget(parent),
     myXmin(0),
     myYmin(0),
     myXmax(0),
@@ -96,7 +82,7 @@ void OccView::init()
     #endif
 
     // Create V3dViewer and V3d_View
-    myViewer = new V3d_Viewer(GetGraphicDriver(), Standard_ExtString("viewer3d"));
+    myViewer = new V3d_Viewer(GetGraphicDriver());
 
     myView = myViewer->CreateView();
 
