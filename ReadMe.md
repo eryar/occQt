@@ -28,7 +28,7 @@ sudo apt-get install qt5-default qt5-qmake qtbase5-dev-tools qtcreator  libglu1-
 
 For Open CASCADE Official Edition
 ---------------------------------
-1. Build Open CASCADE from source with CMake(https://dev.opencascade.org/doc/overview/html/occt_dev_guides__building_cmake.html);
+1. Build Open CASCADE from source with CMake(https://dev.opencascade.org/doc/overview/html/build_upgrade__building_occt.html);
 2. Build occQt with Qt Creator;
 
 
